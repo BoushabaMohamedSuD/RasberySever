@@ -2,6 +2,7 @@
 export { };
 import { Sequelize } from 'sequelize-typescript';
 import { User } from './User';
+import { UserInfo } from './UserInfo';
 export const sequelize = new Sequelize({
     database: 'Iot',
     // dialect: 'sqlite',
@@ -18,5 +19,5 @@ export const sequelize = new Sequelize({
         acquire: 30000,
         idle: 10000
     },
-    models: [User],
+    models: [User, UserInfo],
 });

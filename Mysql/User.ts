@@ -1,4 +1,5 @@
-import { Model, Column, Table, BelongsToMany, Scopes, CreatedAt, UpdatedAt, HasMany, ForeignKey, AllowNull, Unique, NotNull, Default } from "sequelize-typescript";
+import { Model, Column, Table, BelongsToMany, Scopes, CreatedAt, UpdatedAt, HasMany, ForeignKey, AllowNull, Unique, NotNull, Default, HasOne } from "sequelize-typescript";
+import { UserInfo } from "./UserInfo";
 
 @Scopes(() => ({
     users: {
@@ -25,7 +26,22 @@ export class User extends Model<User> {
     email!: string;
 
     @AllowNull(false)
+    @Default(0)
+    @Column
+    state!: number;
+
+    @AllowNull(false)
+    @Default('guest')
+    @Column
+    authority!: string;
+
+    @AllowNull(false)
     @Default(false)
+    @Column
+    isReady!: boolean;
+
+    @AllowNull(false)
+    @Default(true)
     @Column
     isActive!: boolean;
 
@@ -36,6 +52,12 @@ export class User extends Model<User> {
     @UpdatedAt
     @Column
     updatedAt!: Date;
+
+    @ForeignKey(() => UserInfo)
+    UserInfoKey!: number;
+
+    @HasOne(() => UserInfo, ' UserInfoId')
+    UserInfoId?: UserInfo;
 
 
 

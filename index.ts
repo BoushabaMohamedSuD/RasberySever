@@ -6,9 +6,16 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import { sequelize } from './Mysql/MysqlConnectivity';
 
+
+const RouterAuthenticate = require('./router/Authenticate').router;
+
+
 const app = express();
 const five = require("johnny-five");
-const board = new five.Board();
+
+
+//const board = new five.Board();
+
 
 
 
@@ -21,6 +28,7 @@ app.use(function (req, res, next) {
     next();
 });
 app.use(bodyParser({ extended: false }));
+app.use(RouterAuthenticate);
 
 
 
@@ -29,31 +37,43 @@ app.use(bodyParser({ extended: false }));
 
 
 // connect to board arduino
-board.on("ready", function () {
-    console.log("succes connect to arduino");
-    //creating databases
-    sequelize.sync(/*{ force: true }*/)
-        .then(() => {
-            //creating server
-            const server = app.listen(3000);
-            //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
-            //Socket Integration and johnny-five
+// board.on("ready", function () {
+//     console.log("succes connect to arduino");
+//     //creating databases
+//     sequelize.sync(/*{ force: true }*/)
+//         .then(() => {
+//             //creating server
+//             const server = app.listen(3000);
+//             //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
+//             //Socket Integration and johnny-five
 
 
-            console.log("begin blink 500 ms");
-            var led = new five.Led(13);
-            led.blink(500);
+//             console.log("begin blink 500 ms");
+//             var led = new five.Led(13);
+//             led.blink(500);
 
 
-            //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
+//             //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
 
-        })
-        .catch((err) => {
-            console.log(err);
-            console.log("failed to create databases  or tables");
-        })
+//         })
+//         .catch((err) => {
+//             console.log(err);
+//             console.log("failed to create databases  or tables");
+//         })
 
-});
+// });
+
+sequelize.sync(/*{ force: true }*/)
+    .then(() => {
+
+        const server = app.listen(3000);
+        console.log("server has been created");
+
+    })
+    .catch((err) => {
+        console.log(err);
+        console.log("failed to create databases  or tables");
+    })
 
 
 
