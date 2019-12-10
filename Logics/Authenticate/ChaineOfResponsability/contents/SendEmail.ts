@@ -1,7 +1,20 @@
+import { Request, ParamsDictionary, Response } from 'express-serve-static-core';
 import { Observable, Observer } from 'rxjs';
 import { AuthenticateChaine } from '../containers/AuthenticateChaine';
+import jwt from 'jsonwebtoken';
+var nodemailer = require('nodemailer');
+
+
 export class SendEmail implements AuthenticateChaine {
     private Nextchaine!: AuthenticateChaine;
+    private request: Request<ParamsDictionary>;
+    private response: Response<any>;
+    constructor(request: Request<ParamsDictionary, any, any>, response: Response<any>) {
+        this.request = request;
+        this.response = response;
+    }
+
+
     public setNextChaine(chaine: AuthenticateChaine): void {
         this.Nextchaine = chaine;
     }
@@ -32,27 +45,67 @@ export class SendEmail implements AuthenticateChaine {
     public process(): Observable<boolean> {
         return new Observable((observer: Observer<boolean>) => {
 
-            //:::::: your code her :::::::::::://  
-
-
-            if (this.Nextchaine != null) {
-                console.log('going to next chaine');
-                this.Nextchaine.processOperation()
-                    .then((resp) => {
-                        console.log(resp);
-                        observer.next(true);
-                        observer.complete();
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                        console.log('Error');
+            const transporter = nodemailer.createTransport({
+                host: 'smtp.gmail.com',
+                port: 465,
+                // secure: true, // use SSL
+                secureConnection: false,
+                requireTLS: true,
+                auth: {
+                    user: 'nodejs1998yz@gmail.com',
+                    pass: 'NodeJs2020'
+                },
+                tls: {
+                    rejectUnauthorized: false
+                },
+            });
+            jwt.sign({
+                username: this.request.body.username,
+                email: this.request.body.email,
+            }, 'NodeJsIotSUD', { expiresIn: 60 * 5 }, (errToken, resToken) => {
+                let htmlMessage: string = "<a href='http://localhost:3000/ValidationEmail/" + resToken + ">link text</a>";
+                transporter.sendMail({
+                    from: 'Iot SUD ',
+                    to: this.request.body.email as string,
+                    subject: 'Validation email',
+                    text: "please confirm your email ",
+                    html: htmlMessage
+                }, (error: any, response: any) => {
+                    //Email not sent
+                    if (error) {
+                        console.log(error);
                         observer.error(false);
-                    });
-            } else {
-                console.log('this is the end of the chaine');
-                observer.next(true);
-                observer.complete();
-            }
+                    }
+                    //email send sucessfully
+                    else {
+                        console.log('email has been send sucessfully');
+                        if (this.Nextchaine != null) {
+                            console.log('going to next chaine');
+                            this.Nextchaine.processOperation()
+                                .then((resp) => {
+                                    console.log(resp);
+                                    observer.next(true);
+                                    observer.complete();
+                                })
+                                .catch((err) => {
+                                    console.log(err);
+                                    console.log('Error');
+                                    observer.error(false);
+                                });
+                        } else {
+                            console.log('this is the end of the chaine');
+                            observer.next(true);
+                            observer.complete();
+                        }
+                    }
+                });
+
+            });
+
+
+
+
+
         });
 
 

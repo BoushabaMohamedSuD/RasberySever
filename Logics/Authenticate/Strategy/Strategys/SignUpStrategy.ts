@@ -17,8 +17,9 @@ export class SignUpStrategy implements AuthenticateStrategy {
         console.log(request.body);
         this.chaine1 = new PasswordVerification(request, response);
         const chaine2: AuthenticateChaine = new SignUp(request, response);
-        const chaine3: AuthenticateChaine = new ChangeState(request, response);
-        const chaine4: AuthenticateChaine = new SendEmail();
+        const chaine3: AuthenticateChaine = new SendEmail(request, response);
+        const chaine4: AuthenticateChaine = new ChangeState(request, response);
+
         this.chaine1.setNextChaine(chaine2);
         chaine2.setNextChaine(chaine3);
         chaine3.setNextChaine(chaine4);
