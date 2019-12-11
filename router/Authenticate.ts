@@ -8,8 +8,6 @@ import express from 'express';
 import { SignInStrategy } from '../Logics/Authenticate/Strategy/Strategys/SignInStrategy';
 const router = express.Router();
 
-const nodemailer = require("nodemailer");
-const sendgridTransport = require('nodemailer-sendgrid-transport');
 
 
 
@@ -104,7 +102,6 @@ router.post('/LogOut', (req, res) => {
         });
 })
 
-import jwt from 'jsonwebtoken';
 router.get('/ValidationEmail/:token', (req, res) => {
 
     console.log('email validation');
@@ -120,24 +117,6 @@ router.get('/ValidationEmail/:token', (req, res) => {
 
         });
 
-    /* console.log('email validation');
-     console.log(req.params['token']);
-     res.send(req.params['token']);
-     jwt.verify(req.params['token'], 'NodeJsIotSUD', (err, authdata: any) => {
-         if (err) {
-             console.log("----error----");
-             // res.send(false);
-             console.log(err);
- 
-         } else {
-             //res.send(authdata);
-             console.log(authdata);
-             if (authdata != null) {
-                 console.log(authdata.username);
-             }
- 
-         }
-     });*/
 })
 
 
