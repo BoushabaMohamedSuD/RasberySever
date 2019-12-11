@@ -8,6 +8,7 @@ import { sequelize } from './Mysql/MysqlConnectivity';
 
 
 const RouterAuthenticate = require('./router/Authenticate').router;
+const RouterUserInfo = require('./router/UserInfo').router;
 
 
 const app = express();
@@ -28,7 +29,9 @@ app.use(function (req, res, next) {
     next();
 });
 app.use(bodyParser({ extended: false }));
+app.use('/images', express.static(__dirname + '/uploads/public/images'));
 app.use(RouterAuthenticate);
+app.use('/UserInfo', RouterUserInfo);
 
 
 
@@ -63,7 +66,7 @@ app.use(RouterAuthenticate);
 
 // });
 
-sequelize.sync({ force: true })
+sequelize.sync(/*{ force: true }*/)
     .then(() => {
 
         const server = app.listen(3000);

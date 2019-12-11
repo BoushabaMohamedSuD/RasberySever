@@ -20,13 +20,9 @@ export class UserInfo extends Model<UserInfo> {
 
 
     @AllowNull(false)
+    @Default('Empty')
     @Column
-    email!: string;
-
-    @AllowNull(false)
-    @Default(false)
-    @Column
-    address!: boolean;
+    address!: string;
 
 
     @AllowNull(false)
@@ -45,7 +41,7 @@ export class UserInfo extends Model<UserInfo> {
     @ForeignKey(() => User)
     UserKey!: number;
 
-    @BelongsTo(() => User, 'UserKey')
+    @BelongsTo(() => User)
     UserId!: User;
 
 

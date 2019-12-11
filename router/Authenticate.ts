@@ -1,3 +1,5 @@
+import { UserInfo } from './../Mysql/UserInfo';
+import { User } from './../Mysql/User';
 import { LogOutStrategy } from './../Logics/Authenticate/Strategy/Strategys/LogOutStrategy';
 import { UserInfoHandlerStrategy } from './../Logics/Authenticate/Strategy/Strategys/UserInfoHandlerStrategy';
 import { EmailVerificationStartegy } from './../Logics/Authenticate/Strategy/Strategys/EmailVerificationStrategy';
@@ -6,6 +8,7 @@ import { AuthenticateContent } from '../Logics/Authenticate/Strategy/Contents/Au
 
 import express from 'express';
 import { SignInStrategy } from '../Logics/Authenticate/Strategy/Strategys/SignInStrategy';
+import { Request, ParamsDictionary } from 'express-serve-static-core';
 const router = express.Router();
 
 
@@ -67,23 +70,6 @@ router.post('/SendEmail', (req, res) => {
             }
         })
 })
-router.post('/UserInfo', (req, res) => {
-    console.log('UserInfo')
-    new AuthenticateContent(new UserInfoHandlerStrategy(req, res))
-        .process()
-        .then((resp) => {
-            console.log(resp);
-            if (!res.headersSent) {
-                res.send("userinfo true");
-            }
-        })
-        .catch((err) => {
-            console.log(err);
-            if (!res.headersSent) {
-                res.send("user info false");
-            }
-        });
-})
 router.post('/LogOut', (req, res) => {
     console.log('/Log out');
     new AuthenticateContent(new LogOutStrategy(req, res))
@@ -118,6 +104,11 @@ router.get('/ValidationEmail/:token', (req, res) => {
         });
 
 })
+
+
+
+
+
 
 
 exports.router = router;

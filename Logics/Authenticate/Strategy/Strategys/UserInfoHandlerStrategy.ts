@@ -1,22 +1,27 @@
-import { ChangeStateContext } from '../../ChaineOfResponsability/contents/ChangeStateContext';
+import { StateVerificationHeader } from './../../ChaineOfResponsability/contents/StateVerifcation/StateVerifcationHeader';
+import { ChangeStateHeader } from './../../ChaineOfResponsability/contents/StateChangement/ChangeStateHeader';
+import { ChangeStateParametre } from './../../ChaineOfResponsability/contents/StateChangement/ChangeStateParametre';
+import { ChangeStateContext } from './../../ChaineOfResponsability/contents/ChangeStateContext';
+import { ReadyTurnOn } from './../../ChaineOfResponsability/contents/ReadyTurnOn';
+import { StateVerificationParametre } from './../../ChaineOfResponsability/contents/StateVerifcation/StateVerificationParametre';
+import { StateVerificationContext } from './../../ChaineOfResponsability/contents/StateVerificationContext';
 import { UserInfoRegestering } from './../../ChaineOfResponsability/contents/UserInfoRegestering';
-import { UserInfo } from './../../../../Mysql/UserInfo';
-import { SignIn } from '../../ChaineOfResponsability/contents/SignIn';
 import { AuthenticateChaine } from '../../ChaineOfResponsability/containers/AuthenticateChaine';
 import { AuthenticateStrategy } from '../Containers/AuthenticateStrategy';
-import { EmailVerification } from '../../ChaineOfResponsability/contents/EmailVerification';
-import { SignUp } from '../../ChaineOfResponsability/contents/SignUp';
-import { GenerateToken } from '../../ChaineOfResponsability/contents/GenerateToken';
-import { userInfo } from 'os';
 import { Request, ParamsDictionary, Response } from 'express-serve-static-core';
 export class UserInfoHandlerStrategy implements AuthenticateStrategy {
     private chaine1!: AuthenticateChaine;
     constructor(request: Request<ParamsDictionary, any, any>, response: Response<any>) {
-        this.chaine1 = new UserInfoRegestering();
-        /*  const chaine2: AuthenticateChaine = new GenerateToken(request, response);
-          const chaine3: AuthenticateChaine = new ChangeStateContext(request, response);
-          this.chaine1.setNextChaine(chaine2);
-          chaine2.setNextChaine(chaine3);*/
+        this.chaine1 = new StateVerificationContext()
+            .setStateStartigy(new StateVerificationHeader(request, response))
+            .setStateChecked(2);
+        const chaine2 = new UserInfoRegestering(request, response);
+        const chaine3 = new ReadyTurnOn(request, response);
+        const chaine4: AuthenticateChaine = new ChangeStateContext()
+            .setStateStartigy(new ChangeStateHeader(request, response));
+        this.chaine1.setNextChaine(chaine2);
+        chaine2.setNextChaine(chaine3);
+        chaine3.setNextChaine(chaine4);
 
 
     }

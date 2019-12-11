@@ -53,10 +53,10 @@ export class User extends Model<User> {
     @Column
     updatedAt!: Date;
 
-    @ForeignKey(() => UserInfo)
-    UserInfoKey!: number;
+    /*@ForeignKey(() => UserInfo)
+    UserInfoKey!: number;*/
 
-    @HasOne(() => UserInfo, ' UserInfoId')
+    @HasOne(() => UserInfo, 'UserKey')
     UserInfoId?: UserInfo;
 
 
