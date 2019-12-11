@@ -1,4 +1,4 @@
-import { ChangeState } from './../../ChaineOfResponsability/contents/ChangeState';
+import { ChangeStateContext } from '../../ChaineOfResponsability/contents/ChangeStateContext';
 import { UserInfoRegestering } from './../../ChaineOfResponsability/contents/UserInfoRegestering';
 import { UserInfo } from './../../../../Mysql/UserInfo';
 import { SignIn } from '../../ChaineOfResponsability/contents/SignIn';
@@ -13,10 +13,10 @@ export class UserInfoHandlerStrategy implements AuthenticateStrategy {
     private chaine1!: AuthenticateChaine;
     constructor(request: Request<ParamsDictionary, any, any>, response: Response<any>) {
         this.chaine1 = new UserInfoRegestering();
-        const chaine2: AuthenticateChaine = new GenerateToken();
-        const chaine3: AuthenticateChaine = new ChangeState(request, response);
-        this.chaine1.setNextChaine(chaine2);
-        chaine2.setNextChaine(chaine3);
+        /*  const chaine2: AuthenticateChaine = new GenerateToken(request, response);
+          const chaine3: AuthenticateChaine = new ChangeStateContext(request, response);
+          this.chaine1.setNextChaine(chaine2);
+          chaine2.setNextChaine(chaine3);*/
 
 
     }

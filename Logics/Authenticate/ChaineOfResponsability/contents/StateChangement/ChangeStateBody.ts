@@ -1,8 +1,10 @@
-import { User } from './../../../../Mysql/User';
+import { StateChangement } from './../../containers/StateChangement';
+import { User } from './../../../../../Mysql/User';
+import { AuthenticateChaine } from './../../containers/AuthenticateChaine';
 import { Observable, Observer } from 'rxjs';
-import { AuthenticateChaine } from '../containers/AuthenticateChaine';
+
 import { Request, ParamsDictionary, Response } from 'express-serve-static-core';
-export class ChangeState implements AuthenticateChaine {
+export class ChangeStateBody implements AuthenticateChaine, StateChangement {
     private Nextchaine!: AuthenticateChaine;
     private request: Request<ParamsDictionary>;
     private response: Response<any>;

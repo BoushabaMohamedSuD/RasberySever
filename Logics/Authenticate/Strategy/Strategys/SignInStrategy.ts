@@ -13,7 +13,7 @@ export class SignInStrategy implements AuthenticateStrategy {
     constructor(request: Request<ParamsDictionary, any, any>, response: Response<any>) {
         console.log(request.body);
         this.chaine1 = new SignIn(request, response);
-        const chaine2: AuthenticateChaine = new GenerateToken();
+        const chaine2: AuthenticateChaine = new GenerateToken(request, response);
         this.chaine1.setNextChaine(chaine2);
         this.request = request;
         this.response = response;

@@ -20,11 +20,18 @@ router.post('/SignIn', (req, res) => {
         .process()
         .then((resp) => {
             console.log(resp);
-            res.send("SignIn true");
+            if (!res.headersSent) {
+                res.send("SignIn true");
+            }
+
         })
         .catch((err) => {
             console.log(err);
-            res.send("SignIn false");
+            if (!res.headersSent) {
+                res.send("SignIn false");
+            }
+
+
         })
 
 });
@@ -34,11 +41,15 @@ router.post('/SignUp', (req, res) => {
         .process()
         .then((resp) => {
             console.log(resp);
-            res.send("Signup true");
+            if (!res.headersSent) {
+                res.send("Signup true");
+            }
         })
         .catch((err) => {
             console.log(err);
-            res.send("Signup false");
+            if (!res.headersSent) {
+                res.send("Signup false");
+            }
         })
 });
 router.post('/SendEmail', (req, res) => {
@@ -47,11 +58,15 @@ router.post('/SendEmail', (req, res) => {
         .process()
         .then((resp) => {
             console.log(resp);
-            res.send("SendEmail true");
+            if (!res.headersSent) {
+                res.send("Send email true");
+            }
         })
         .catch((err) => {
             console.log(err);
-            res.send("SendEmail false");
+            if (!res.headersSent) {
+                res.send("sendemail false");
+            }
         })
 })
 router.post('/UserInfo', (req, res) => {
@@ -60,11 +75,15 @@ router.post('/UserInfo', (req, res) => {
         .process()
         .then((resp) => {
             console.log(resp);
-            res.send("Userinfo true");
+            if (!res.headersSent) {
+                res.send("userinfo true");
+            }
         })
         .catch((err) => {
             console.log(err);
-            res.send("UserInfo false");
+            if (!res.headersSent) {
+                res.send("user info false");
+            }
         });
 })
 router.post('/LogOut', (req, res) => {
@@ -73,18 +92,52 @@ router.post('/LogOut', (req, res) => {
         .process()
         .then((resp) => {
             console.log(resp);
-            res.send("LogOut true");
+            if (!res.headersSent) {
+                res.send("logout true");
+            }
         })
         .catch((err) => {
             console.log(err);
-            res.send("LogOut false");
+            if (!res.headersSent) {
+                res.send("logout false");
+            }
         });
 })
 
-router.get('/ValidationEmail/:token', async (req, res) => {
+import jwt from 'jsonwebtoken';
+router.get('/ValidationEmail/:token', (req, res) => {
+
     console.log('email validation');
-    console.log(req.params['token']);
-    res.send(req.params['token']);
+    new AuthenticateContent(new EmailVerificationStartegy(req, res))
+        .process()
+        .then((resp) => {
+            console.log('email has been validated');
+            res.send(true);
+        })
+        .catch((err) => {
+            console.log(err);
+            res.send(false);
+
+        });
+
+    /* console.log('email validation');
+     console.log(req.params['token']);
+     res.send(req.params['token']);
+     jwt.verify(req.params['token'], 'NodeJsIotSUD', (err, authdata: any) => {
+         if (err) {
+             console.log("----error----");
+             // res.send(false);
+             console.log(err);
+ 
+         } else {
+             //res.send(authdata);
+             console.log(authdata);
+             if (authdata != null) {
+                 console.log(authdata.username);
+             }
+ 
+         }
+     });*/
 })
 
 

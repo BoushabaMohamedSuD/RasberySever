@@ -1,5 +1,7 @@
+import { ChangeStateBody } from './../../ChaineOfResponsability/contents/StateChangement/ChangeStateBody';
+
 import { SendEmail } from './../../ChaineOfResponsability/contents/SendEmail';
-import { ChangeState } from './../../ChaineOfResponsability/contents/ChangeState';
+import { ChangeStateContext } from '../../ChaineOfResponsability/contents/ChangeStateContext';
 import { AuthenticateChaine } from '../../ChaineOfResponsability/containers/AuthenticateChaine';
 import { AuthenticateStrategy } from '../Containers/AuthenticateStrategy';
 import { EmailVerification } from '../../ChaineOfResponsability/contents/EmailVerification';
@@ -18,11 +20,14 @@ export class SignUpStrategy implements AuthenticateStrategy {
         this.chaine1 = new PasswordVerification(request, response);
         const chaine2: AuthenticateChaine = new SignUp(request, response);
         const chaine3: AuthenticateChaine = new SendEmail(request, response);
-        const chaine4: AuthenticateChaine = new ChangeState(request, response);
+        const chaine4: AuthenticateChaine = new ChangeStateContext()
+            .setStateStartigy(new ChangeStateBody(request, response));
+        const chaine5: AuthenticateChaine = new GenerateToken(request, response);
 
         this.chaine1.setNextChaine(chaine2);
         chaine2.setNextChaine(chaine3);
         chaine3.setNextChaine(chaine4);
+        chaine4.setNextChaine(chaine5);
         this.request = request;
         this.response = response;
 
