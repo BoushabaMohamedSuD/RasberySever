@@ -1,3 +1,4 @@
+import { SendEmailValidation } from './../Logics/Authenticate/Strategy/Strategys/SendEmailValidation';
 import { UserInfo } from './../Mysql/UserInfo';
 import { User } from './../Mysql/User';
 import { LogOutStrategy } from './../Logics/Authenticate/Strategy/Strategys/LogOutStrategy';
@@ -54,8 +55,8 @@ router.post('/SignUp', (req, res) => {
         })
 });
 router.post('/SendEmail', (req, res) => {
-    console.log('email verification');
-    new AuthenticateContent(new EmailVerificationStartegy(req, res))
+    console.log('sendEmail');
+    new AuthenticateContent(new SendEmailValidation(req, res))
         .process()
         .then((resp) => {
             console.log(resp);

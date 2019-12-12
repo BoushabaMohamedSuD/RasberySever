@@ -1,11 +1,12 @@
+import { SendEmail } from '../../containers/SendEmail';
+import { AuthenticateChaine } from './../../containers/AuthenticateChaine';
 import { Request, ParamsDictionary, Response } from 'express-serve-static-core';
 import { Observable, Observer } from 'rxjs';
-import { AuthenticateChaine } from '../containers/AuthenticateChaine';
 import jwt from 'jsonwebtoken';
 var nodemailer = require('nodemailer');
 
 
-export class SendEmail implements AuthenticateChaine {
+export class SendEmailBody implements AuthenticateChaine, SendEmail {
     private Nextchaine!: AuthenticateChaine;
     private request: Request<ParamsDictionary>;
     private response: Response<any>;

@@ -66,7 +66,7 @@ app.use('/UserInfo', RouterUserInfo);
 
 // });
 
-sequelize.sync(/*{ force: true }*/)
+sequelize.sync({ force: true })
     .then(() => {
 
         const server = app.listen(3000);

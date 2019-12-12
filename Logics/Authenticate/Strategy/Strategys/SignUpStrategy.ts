@@ -1,6 +1,7 @@
+import { SendEmailBody } from './../../ChaineOfResponsability/contents/SendEmail/SendEmailBody';
 import { ChangeStateBody } from './../../ChaineOfResponsability/contents/StateChangement/ChangeStateBody';
 
-import { SendEmail } from './../../ChaineOfResponsability/contents/SendEmail';
+
 import { ChangeStateContext } from '../../ChaineOfResponsability/contents/ChangeStateContext';
 import { AuthenticateChaine } from '../../ChaineOfResponsability/containers/AuthenticateChaine';
 import { AuthenticateStrategy } from '../Containers/AuthenticateStrategy';
@@ -9,6 +10,7 @@ import { SignUp } from '../../ChaineOfResponsability/contents/SignUp';
 import { GenerateToken } from '../../ChaineOfResponsability/contents/GenerateToken';
 import { PasswordVerification } from '../../ChaineOfResponsability/contents/PasswordVerification';
 import { Request, ParamsDictionary, Response } from 'express-serve-static-core';
+import { SendEmailContext } from '../../ChaineOfResponsability/contents/SendEmailContext';
 export class SignUpStrategy implements AuthenticateStrategy {
     private chaine1!: AuthenticateChaine;
     private request: Request<ParamsDictionary>;
@@ -19,7 +21,8 @@ export class SignUpStrategy implements AuthenticateStrategy {
         console.log(request.body);
         this.chaine1 = new PasswordVerification(request, response);
         const chaine2: AuthenticateChaine = new SignUp(request, response);
-        const chaine3: AuthenticateChaine = new SendEmail(request, response);
+        const chaine3: AuthenticateChaine = new SendEmailContext()
+            .setStateStartigy(new SendEmailBody(request, response));
         const chaine4: AuthenticateChaine = new ChangeStateContext()
             .setStateStartigy(new ChangeStateBody(request, response));
         const chaine5: AuthenticateChaine = new GenerateToken(request, response);

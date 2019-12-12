@@ -2,7 +2,8 @@ import { User } from './../../../../Mysql/User';
 import { Observable, Observer } from 'rxjs';
 import { AuthenticateChaine } from '../containers/AuthenticateChaine';
 import { Request, ParamsDictionary, Response } from 'express-serve-static-core';
-export class LogOut implements AuthenticateChaine {
+import jwt from 'jsonwebtoken';
+export class DestroyToken implements AuthenticateChaine {
     private Nextchaine!: AuthenticateChaine;
     private request: Request<ParamsDictionary>;
     private response: Response<any>;
@@ -43,33 +44,28 @@ export class LogOut implements AuthenticateChaine {
 
     public process(): Observable<boolean> {
         return new Observable((observer: Observer<boolean>) => {
+            const bearer = (this.request.header('authorization') as string).split(' ');
+            let token: string = bearer[1];
+            console.log(token);
 
-            User.update({ isActive: false }, { where: { username: (this.request.header('Username') as string) } })
-                .then((resp) => {
-                    console.log(":::::::updating::::::::");
-                    if (this.Nextchaine != null) {
-                        console.log('going to next chaine');
-                        this.Nextchaine.processOperation()
-                            .then((resp) => {
-                                console.log(resp);
-                                observer.next(true);
-                                observer.complete();
-                            })
-                            .catch((err) => {
-                                console.log(err);
-                                console.log('Error');
-                                observer.error(false);
-                            });
-                    } else {
-                        console.log('this is the end of the chaine');
+            if (this.Nextchaine != null) {
+                console.log('going to next chaine');
+                this.Nextchaine.processOperation()
+                    .then((resp) => {
+                        console.log(resp);
                         observer.next(true);
                         observer.complete();
-                    }
-                })
-                .catch((err) => {
-                    console.log('cannot update the activity of the user in logout');
-                    observer.error(false);
-                })
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        console.log('Error');
+                        observer.error(false);
+                    });
+            } else {
+                console.log('this is the end of the chaine');
+                observer.next(true);
+                observer.complete();
+            }
 
 
         });

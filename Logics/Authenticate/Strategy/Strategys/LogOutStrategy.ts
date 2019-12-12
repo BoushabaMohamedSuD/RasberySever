@@ -1,3 +1,5 @@
+import { DestroyToken } from './../../ChaineOfResponsability/contents/DestroyToken';
+import { VerifyToken } from './../../ChaineOfResponsability/contents/VerifyToken';
 import { LogOut } from './../../ChaineOfResponsability/contents/LogOut';
 import { IsReady } from './../../ChaineOfResponsability/contents/IsReady';
 import { IsActive } from './../../ChaineOfResponsability/contents/IsActive';
@@ -11,11 +13,13 @@ import { Request, ParamsDictionary, Response } from 'express-serve-static-core';
 export class LogOutStrategy implements AuthenticateStrategy {
     private chaine1!: AuthenticateChaine;
     constructor(request: Request<ParamsDictionary, any, any>, response: Response<any>) {
-        this.chaine1 = new IsActive();
-        const chaine2: AuthenticateChaine = new IsReady();
-        const chaine3: AuthenticateChaine = new LogOut();
-        chaine2.setNextChaine(chaine3);
+        this.chaine1 = new VerifyToken(request, response);
+        const chaine2 = new IsActive(request, response);
+        const chaine3: AuthenticateChaine = new LogOut(request, response);
+        //   const chaine4: AuthenticateChaine = new DestroyToken(request, response);
         this.chaine1.setNextChaine(chaine2);
+        chaine2.setNextChaine(chaine3);
+        // chaine3.setNextChaine(chaine4);
 
 
     }
