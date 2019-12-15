@@ -64,7 +64,7 @@ export class SendEmailBody implements AuthenticateChaine, SendEmail {
                 username: this.request.body.username,
                 email: this.request.body.email,
             }, 'NodeJsIotSUD', { expiresIn: 60 * 5 }, (errToken, resToken) => {
-                let htmlMessage: string = "<a href='http://localhost:3000/ValidationEmail/" + resToken + ">link text</a>";
+                let htmlMessage: string = "<a href='http://localhost:3000/ValidateEmail/" + resToken + ">link text</a>";
                 transporter.sendMail({
                     from: 'Iot SUD ',
                     to: this.request.body.email as string,

@@ -50,11 +50,11 @@ router.post('/SignUp', (req, res) => {
         .catch((err) => {
             console.log(err);
             if (!res.headersSent) {
-                res.send("Signup false");
+                res.status(400).send("Signup false");
             }
         })
 });
-router.post('/SendEmail', (req, res) => {
+router.get('/SendEmail', (req, res) => {
     console.log('sendEmail');
     new AuthenticateContent(new SendEmailValidation(req, res))
         .process()
@@ -67,7 +67,7 @@ router.post('/SendEmail', (req, res) => {
         .catch((err) => {
             console.log(err);
             if (!res.headersSent) {
-                res.send("sendemail false");
+                res.status(400).send("sendemail false");
             }
         })
 })
@@ -100,12 +100,19 @@ router.get('/ValidationEmail/:token', (req, res) => {
         })
         .catch((err) => {
             console.log(err);
-            res.send(false);
+            res.status(400).send(false);
 
         });
 
 })
 
+
+router.get('/test', (req, res) => {
+    console.log("(((test)))))");
+    const bearer = (req.header('authorization') as string).split(' ');
+    let token: string = bearer[1];
+    console.log(token);
+});
 
 
 
