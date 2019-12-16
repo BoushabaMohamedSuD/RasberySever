@@ -9,19 +9,22 @@ import { UserInfoRegestering } from './../../ChaineOfResponsability/contents/Use
 import { AuthenticateChaine } from '../../ChaineOfResponsability/containers/AuthenticateChaine';
 import { AuthenticateStrategy } from '../Containers/AuthenticateStrategy';
 import { Request, ParamsDictionary, Response } from 'express-serve-static-core';
+import { VerifyToken } from '../../ChaineOfResponsability/contents/VerifyToken';
 export class UserInfoHandlerStrategy implements AuthenticateStrategy {
     private chaine1!: AuthenticateChaine;
     constructor(request: Request<ParamsDictionary, any, any>, response: Response<any>) {
-        this.chaine1 = new StateVerificationContext()
+        this.chaine1 = new VerifyToken(request, response);
+        const chaine2 = new StateVerificationContext()
             .setStateStartigy(new StateVerificationHeader(request, response))
             .setStateChecked(2);
-        const chaine2 = new UserInfoRegestering(request, response);
-        const chaine3 = new ReadyTurnOn(request, response);
-        const chaine4: AuthenticateChaine = new ChangeStateContext()
+        const chaine3 = new UserInfoRegestering(request, response);
+        const chaine4 = new ReadyTurnOn(request, response);
+        const chaine5: AuthenticateChaine = new ChangeStateContext()
             .setStateStartigy(new ChangeStateHeader(request, response));
         this.chaine1.setNextChaine(chaine2);
         chaine2.setNextChaine(chaine3);
         chaine3.setNextChaine(chaine4);
+        chaine4.setNextChaine(chaine5);
 
 
     }

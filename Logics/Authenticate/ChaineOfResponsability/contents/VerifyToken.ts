@@ -43,7 +43,10 @@ export class VerifyToken implements AuthenticateChaine {
     }
 
     public process(): Observable<boolean> {
+        console.log("starttttttttttttttttttt");
         return new Observable((observer: Observer<boolean>) => {
+            console.log("wtffffffffffffffff");
+            console.log(this.request.header('authorization'));
             const bearer = (this.request.header('authorization') as string).split(' ');
             let token: string = bearer[1];
             console.log(token);

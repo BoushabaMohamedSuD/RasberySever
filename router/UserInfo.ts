@@ -17,9 +17,10 @@ var storage = multer.diskStorage({
 });
 var upload = multer({ storage: storage });
 
-
-router.use('/', (req, res, next) => {
+/*
+router.post('/', (req, res, next) => {
     console.log('check authorization');
+    console.log(req.headers);
     new AuthenticateContent(new AuthorizationUserInfo(req, res))
         .process()
         .then((resp) => {
@@ -41,14 +42,15 @@ router.use('/', (req, res, next) => {
             console.log("authorization field");
             if (!res.headersSent) {
 
-                res.send("authorization field from user info");
+                res.status(400).send("authorization field from user info");
             }
         });
 
-});
+});*/
 
 router.post('/UserInfoHandler', upload.single('PictureData'), (req, res) => {
     console.log('submiting the data');
+    // console.log(req.headers);
     new AuthenticateContent(new UserInfoHandlerStrategy(req, res))
         .process()
         .then((resp) => {
@@ -60,7 +62,7 @@ router.post('/UserInfoHandler', upload.single('PictureData'), (req, res) => {
         .catch((err) => {
             console.log(err);
             if (!res.headersSent) {
-                res.send("user handler false");
+                res.status(400).send("user handler false");
             }
         });
 

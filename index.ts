@@ -24,7 +24,7 @@ const five = require("johnny-five");
 //initializing the configuration
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Expose-Headers", "Username,Authorization,authorization");
+    res.header("Access-Control-Expose-Headers", "Username,Authorization,authorization,PictureData");
     res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
     res.header("Access-Control-Allow-Headers", "Authorization,Username,Origin, X-Requested-With, Content-Type, Accept");
     next();
