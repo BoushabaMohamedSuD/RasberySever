@@ -1,4 +1,4 @@
-import { Rasbery } from './Mysql/Rasbery';
+
 import { RasberyId } from './proprieties/RasberyId';
 export { };
 
@@ -7,6 +7,8 @@ export { };
 import express from 'express';
 import bodyParser from 'body-parser';
 import { sequelize } from './Mysql/MysqlConnectivity';
+import { RasberySql } from './Mysql/RasberySQL';
+import e from 'express';
 
 
 const RouterAuthenticate = require('./router/Authenticate').router;
@@ -72,10 +74,11 @@ app.use('/Rasbery', RouterUserInfo);
 
 sequelize.sync(/*{ force: true }*/)
     .then(() => {
-        Rasbery.create()
+        RasberySql.create()
             .then(() => {
                 const server = app.listen(4000);
                 console.log("server has been created");
+
             })
             .catch((err) => {
                 console.log('connot create rasbery table');

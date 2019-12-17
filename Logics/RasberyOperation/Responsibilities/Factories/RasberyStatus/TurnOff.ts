@@ -1,9 +1,10 @@
-import { RasberyResponsabilities } from './../../../containers/RasberyResponsabilities';
-import { User } from '../../../../../../Mysql/User';
+import { RasberyResponsabilities } from './../../containers/RasberyResponsabilities';
+import { RasberySql } from '../../../../../Mysql/RasberySQL';
+
 
 import { Observable, Observer } from 'rxjs';
 import { Request, ParamsDictionary, Response } from 'express-serve-static-core';
-export class GuestChange implements RasberyResponsabilities {
+export class TurnOff implements RasberyResponsabilities {
     private Nextchaine!: RasberyResponsabilities;
     private request: Request<ParamsDictionary>;
     private response: Response<any>;
@@ -25,17 +26,17 @@ export class GuestChange implements RasberyResponsabilities {
             this.process().subscribe(
                 (resp) => {
                     if (resp) {
-                        console.log('Authority Guest  achieved an response');
+                        console.log('Turn off  achieved an response');
                         resolve(true);
                     }
                 },
                 (err) => {
-                    console.log('Error in Authority Guest');
+                    console.log('Error in Turn off');
                     reject(false);
 
                 },
                 () => {
-                    console.log('Authority Guest complete');
+                    console.log('turn off  complete');
                 }
             )
         });
@@ -46,8 +47,8 @@ export class GuestChange implements RasberyResponsabilities {
     public process(): Observable<boolean> {
         return new Observable((observer: Observer<boolean>) => {
 
-            User.update({ authority: 'guest' }, { where: { username: this.data.username } })
-                .then((resp) => {
+            RasberySql.update({ isBlocked: true }, { where: { id: 1 } })
+                .then(() => {
                     if (this.Nextchaine != null) {
                         console.log('going to next chaine');
                         this.Nextchaine.processOperation()

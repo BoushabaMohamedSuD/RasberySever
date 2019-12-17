@@ -1,9 +1,11 @@
-import { User } from './../../../../Mysql/User';
-import { Rasbery } from './../../Strategy/containers/Rasbery';
+import { RasberyResponsabilities } from './../containers/RasberyResponsabilities';
+
+import { User } from '../../../../Mysql/User';
 import { Observable, Observer } from 'rxjs';
 import { Request, ParamsDictionary, Response } from 'express-serve-static-core';
-export class isReady implements Rasbery {
-    private Nextchaine!: Rasbery;
+import jwt from 'jsonwebtoken';
+export class TokenVerification implements RasberyResponsabilities {
+    private Nextchaine!: RasberyResponsabilities;
     private request: Request<ParamsDictionary>;
     private response: Response<any>;
     private data: any;
@@ -15,26 +17,27 @@ export class isReady implements Rasbery {
         this.data = data;
     }
 
-    public setNextChaine(chaine: Rasbery): void {
+    public setNextChaine(chaine: RasberyResponsabilities): void {
         this.Nextchaine = chaine;
     }
     public processOperation(): Promise<boolean> {
+
 
         return new Promise((resolve, reject) => {
             this.process().subscribe(
                 (resp) => {
                     if (resp) {
-                        console.log('is raedy achieved an response');
+                        console.log('verification tokn achieved an response');
                         resolve(true);
                     }
                 },
                 (err) => {
-                    console.log('Error in is ready');
+                    console.log('Error in verefocation the token');
                     reject(false);
 
                 },
                 () => {
-                    console.log('is ready complete');
+                    console.log('verification token complete');
                 }
             )
         });
@@ -44,11 +47,17 @@ export class isReady implements Rasbery {
 
     public process(): Observable<boolean> {
         return new Observable((observer: Observer<boolean>) => {
-
-            User.findOne({ where: { username: this.data.username } })
-                .then((user) => {
-                    if (user != null) {
-                        if (user.isReady) {
+            console.log(this.request.header('authorization'));
+            const bearer = (this.request.header('authorization') as string).split(' ');
+            let token: string = bearer[1];
+            console.log(token);
+            console.log(this.request.header('Username'));
+            jwt.verify(token, 'NodeJsIotSUD', (err: any, authdata: any) => {
+                if (!err) {
+                    if (authdata != null) {
+                        if (authdata.username == this.request.header('Username') as string) {
+                            this.data.username = authdata.username;
+                            this.data.email = authdata.email;
                             if (this.Nextchaine != null) {
                                 console.log('going to next chaine');
                                 this.Nextchaine.processOperation()
@@ -67,22 +76,27 @@ export class isReady implements Rasbery {
                                 observer.next(true);
                                 observer.complete();
                             }
-
                         } else {
+                            console.log("token is not match up with headres");
                             observer.error(false);
-                            console.log("user still not ready");
                         }
                     } else {
                         observer.error(false);
-                        console.log("user after fitching is null");
+                        console.log('authdata is null');
                     }
-                })
-                .catch((err) => {
+
+                } else {
                     observer.error(false);
-                    console.log('can not find user');
-                });
+                    console.log('authorization field');
+                }
+            });
+
+
+
+
 
         });
+
 
 
     }

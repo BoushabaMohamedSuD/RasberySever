@@ -1,10 +1,10 @@
-import { Rasbery } from './../../Strategy/containers/Rasbery';
-import { User } from './../../../../Mysql/User';
+import { RasberyResponsabilities } from './../containers/RasberyResponsabilities';
+import { User } from '../../../../Mysql/User';
+
 import { Observable, Observer } from 'rxjs';
 import { Request, ParamsDictionary, Response } from 'express-serve-static-core';
-import jwt from 'jsonwebtoken';
-export class TokenVerification implements Rasbery {
-    private Nextchaine!: Rasbery;
+export class UserisReady implements RasberyResponsabilities {
+    private Nextchaine!: RasberyResponsabilities;
     private request: Request<ParamsDictionary>;
     private response: Response<any>;
     private data: any;
@@ -16,27 +16,26 @@ export class TokenVerification implements Rasbery {
         this.data = data;
     }
 
-    public setNextChaine(chaine: Rasbery): void {
+    public setNextChaine(chaine: RasberyResponsabilities): void {
         this.Nextchaine = chaine;
     }
     public processOperation(): Promise<boolean> {
-
 
         return new Promise((resolve, reject) => {
             this.process().subscribe(
                 (resp) => {
                     if (resp) {
-                        console.log('verification tokn achieved an response');
+                        console.log('is raedy achieved an response');
                         resolve(true);
                     }
                 },
                 (err) => {
-                    console.log('Error in verefocation the token');
+                    console.log('Error in is ready');
                     reject(false);
 
                 },
                 () => {
-                    console.log('verification token complete');
+                    console.log('is ready complete');
                 }
             )
         });
@@ -46,17 +45,11 @@ export class TokenVerification implements Rasbery {
 
     public process(): Observable<boolean> {
         return new Observable((observer: Observer<boolean>) => {
-            console.log(this.request.header('authorization'));
-            const bearer = (this.request.header('authorization') as string).split(' ');
-            let token: string = bearer[1];
-            console.log(token);
-            console.log(this.request.header('Username'));
-            jwt.verify(token, 'NodeJsIotSUD', (err: any, authdata: any) => {
-                if (!err) {
-                    if (authdata != null) {
-                        if (authdata.username == this.request.header('Username') as string) {
-                            this.data.username = authdata.username;
-                            this.data.email = authdata.email;
+
+            User.findOne({ where: { username: this.data.username } })
+                .then((user) => {
+                    if (user != null) {
+                        if (user.isReady) {
                             if (this.Nextchaine != null) {
                                 console.log('going to next chaine');
                                 this.Nextchaine.processOperation()
@@ -75,27 +68,22 @@ export class TokenVerification implements Rasbery {
                                 observer.next(true);
                                 observer.complete();
                             }
+
                         } else {
-                            console.log("token is not match up with headres");
                             observer.error(false);
+                            console.log("user still not ready");
                         }
                     } else {
                         observer.error(false);
-                        console.log('authdata is null');
+                        console.log("user after fitching is null");
                     }
-
-                } else {
+                })
+                .catch((err) => {
                     observer.error(false);
-                    console.log('authorization field');
-                }
-            });
-
-
-
-
+                    console.log('can not find user');
+                });
 
         });
-
 
 
     }

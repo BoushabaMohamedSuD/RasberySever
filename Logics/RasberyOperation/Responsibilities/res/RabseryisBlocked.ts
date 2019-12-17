@@ -1,10 +1,11 @@
-import { RasberyResponsabilities } from './../../../containers/RasberyResponsabilities';
-import { User } from '../../../../../../Mysql/User';
+import { RasberyResponsabilities } from './../containers/RasberyResponsabilities';
+import { RasberySql } from './../../../../Mysql/RasberySQL';
 
+import { User } from '../../../../Mysql/User';
 
 import { Observable, Observer } from 'rxjs';
 import { Request, ParamsDictionary, Response } from 'express-serve-static-core';
-export class AdminCheck implements RasberyResponsabilities {
+export class RasberyisBlocked implements RasberyResponsabilities {
     private Nextchaine!: RasberyResponsabilities;
     private request: Request<ParamsDictionary>;
     private response: Response<any>;
@@ -26,17 +27,17 @@ export class AdminCheck implements RasberyResponsabilities {
             this.process().subscribe(
                 (resp) => {
                     if (resp) {
-                        console.log('Authority Guest  achieved an response');
+                        console.log('rasbery is blocked achieved an response');
                         resolve(true);
                     }
                 },
                 (err) => {
-                    console.log('Error in Authority Guest');
+                    console.log('Error in rasbery is blocked');
                     reject(false);
 
                 },
                 () => {
-                    console.log('Authority Guest complete');
+                    console.log('rasbery is blocked complete');
                 }
             )
         });
@@ -47,10 +48,10 @@ export class AdminCheck implements RasberyResponsabilities {
     public process(): Observable<boolean> {
         return new Observable((observer: Observer<boolean>) => {
 
-            User.findOne({ where: { username: this.data.username } })
-                .then((user) => {
-                    if (user != null) {
-                        if (user.authority == "admin") {
+            RasberySql.findOne({ where: { id: 1 } })
+                .then((rasbery) => {
+                    if (rasbery != null) {
+                        if (!rasbery.isBlocked) {
                             if (this.Nextchaine != null) {
                                 console.log('going to next chaine');
                                 this.Nextchaine.processOperation()
@@ -72,16 +73,16 @@ export class AdminCheck implements RasberyResponsabilities {
 
                         } else {
                             observer.error(false);
-                            console.log("user authority guest not valide");
+                            console.log("rasbery is blocked");
                         }
                     } else {
                         observer.error(false);
-                        console.log("user after fitching is null");
+                        console.log("rasbery after fitching is null");
                     }
                 })
                 .catch((err) => {
                     observer.error(false);
-                    console.log('can not find user');
+                    console.log('can not find rasbery');
                 });
 
         });

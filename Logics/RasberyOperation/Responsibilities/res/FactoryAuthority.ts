@@ -1,15 +1,16 @@
-import { AdminChange } from './../Factories/Authority/AuthorityChange/AdminChange';
-import { GuestChange } from './../Factories/Authority/AuthorityChange/GuestChange';
+import { RasberyResponsabilities } from './../containers/RasberyResponsabilities';
+import { AdminChange } from '../Factories/Authority/AuthorityChange/AdminChange';
+import { GuestChange } from '../Factories/Authority/AuthorityChange/GuestChange';
 import { AdminCheck } from '../Factories/Authority/AuthorityCheck/AdminCheck';
 import { GuestCheck } from '../Factories/Authority/AuthorityCheck/GuestCheck';
 import { Request, Response, ParamsDictionary } from 'express-serve-static-core';
-import { Rasbery } from '../../Strategy/containers/Rasbery';
-import e = require('express');
+
+
 
 export class FactoryAuthority {
 
     public static getAuthority(request: Request<ParamsDictionary>, response: Response<any>
-        , data: any, access: string, operation: string): Rasbery {
+        , data: any, access: string, operation: string): RasberyResponsabilities {
         let authority;
         if (operation == 'check') {
             if (access == 'guest') {
@@ -28,7 +29,7 @@ export class FactoryAuthority {
                 return authority;
             }
         }
-        throw e();
+        throw new Error('no Factory selected');
 
     }
 }

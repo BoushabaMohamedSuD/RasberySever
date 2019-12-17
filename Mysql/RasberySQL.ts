@@ -1,4 +1,4 @@
-import { RasberyId } from './../proprieties/RasberyId';
+import { RasberyId } from '../proprieties/RasberyId';
 import { Model, Column, Table, BelongsToMany, Scopes, CreatedAt, UpdatedAt, HasMany, ForeignKey, AllowNull, Unique, NotNull, Default, BelongsTo } from "sequelize-typescript";
 import { User } from "./User";
 
@@ -8,7 +8,7 @@ import { User } from "./User";
     },
 }))
 @Table
-export class Rasbery extends Model<Rasbery> {
+export class RasberySql extends Model<RasberySql> {
 
 
     @AllowNull(false)
@@ -20,6 +20,11 @@ export class Rasbery extends Model<Rasbery> {
     @Default(RasberyId.getInstance().getKey())
     @Column
     rasberyKey!: string;
+
+    @AllowNull(false)
+    @Default(false)
+    @Column
+    isBlocked!: boolean;
 
     @CreatedAt
     @Column

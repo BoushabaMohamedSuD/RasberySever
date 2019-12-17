@@ -1,4 +1,4 @@
-import { Rasbery } from './Rasbery';
+import { RasberySql } from './RasberySQL';
 // for connecting to databases in mysql workbunch
 export { };
 import { Sequelize } from 'sequelize-typescript';
@@ -20,5 +20,5 @@ export const sequelize = new Sequelize({
         acquire: 30000,
         idle: 10000
     },
-    models: [User, UserInfo, Rasbery],
+    models: [User, UserInfo, RasberySql],
 });

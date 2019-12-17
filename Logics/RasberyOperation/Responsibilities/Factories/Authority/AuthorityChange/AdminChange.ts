@@ -1,10 +1,11 @@
+import { RasberyResponsabilities } from './../../../containers/RasberyResponsabilities';
 import { User } from '../../../../../../Mysql/User';
-import { Rasbery } from '../../../../Strategy/containers/Rasbery';
+
 
 import { Observable, Observer } from 'rxjs';
 import { Request, ParamsDictionary, Response } from 'express-serve-static-core';
-export class AdminChange implements Rasbery {
-    private Nextchaine!: Rasbery;
+export class AdminChange implements RasberyResponsabilities {
+    private Nextchaine!: RasberyResponsabilities;
     private request: Request<ParamsDictionary>;
     private response: Response<any>;
     private data: any;
@@ -16,7 +17,7 @@ export class AdminChange implements Rasbery {
         this.data = data;
     }
 
-    public setNextChaine(chaine: Rasbery): void {
+    public setNextChaine(chaine: RasberyResponsabilities): void {
         this.Nextchaine = chaine;
     }
     public processOperation(): Promise<boolean> {
