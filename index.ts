@@ -34,6 +34,7 @@ app.use(bodyParser({ extended: false }));
 app.use('/images', express.static(__dirname + '/uploads/public/images'));
 app.use(RouterAuthenticate);
 app.use('/UserInfo', RouterUserInfo);
+app.use('/Rasbery', RouterUserInfo);
 
 
 
@@ -69,7 +70,7 @@ app.use('/UserInfo', RouterUserInfo);
 // });
 
 
-sequelize.sync({ force: true })
+sequelize.sync(/*{ force: true }*/)
     .then(() => {
         Rasbery.create()
             .then(() => {

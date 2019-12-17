@@ -30,6 +30,10 @@ export class Rasbery extends Model<Rasbery> {
     updatedAt!: Date;
 
 
+    @HasMany(() => User, 'RasberyId')
+    users?: User[];
+
+
 
 
 

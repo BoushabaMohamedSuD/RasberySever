@@ -5,7 +5,7 @@ import { Request, ParamsDictionary, Response } from 'express-serve-static-core';
 export class Authorization implements AuthenticateStrategy {
     private chaine1!: AuthenticateChaine;
     constructor(request: Request<ParamsDictionary, any, any>, response: Response<any>) {
-        this.chaine1 = new UserInfoRegestering();
+        //this.chaine1 = new UserInfoRegestering();
         /*  const chaine2: AuthenticateChaine = new GenerateToken(request, response);
           const chaine3: AuthenticateChaine = new ChangeStateContext(request, response);
           this.chaine1.setNextChaine(chaine2);

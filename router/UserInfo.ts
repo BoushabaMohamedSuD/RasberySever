@@ -17,7 +17,7 @@ var storage = multer.diskStorage({
 });
 var upload = multer({ storage: storage });
 
-/*
+
 router.post('/', (req, res, next) => {
     console.log('check authorization');
     console.log(req.headers);
@@ -46,7 +46,7 @@ router.post('/', (req, res, next) => {
             }
         });
 
-});*/
+});
 
 router.post('/UserInfoHandler', upload.single('PictureData'), (req, res) => {
     console.log('submiting the data');
