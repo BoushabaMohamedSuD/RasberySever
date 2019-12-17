@@ -1,3 +1,4 @@
+import { Rasbery } from './Mysql/Rasbery';
 import { RasberyId } from './proprieties/RasberyId';
 export { };
 
@@ -70,9 +71,16 @@ app.use('/UserInfo', RouterUserInfo);
 
 sequelize.sync({ force: true })
     .then(() => {
+        Rasbery.create()
+            .then(() => {
+                const server = app.listen(4000);
+                console.log("server has been created");
+            })
+            .catch((err) => {
+                console.log('connot create rasbery table');
+                console.log(err);
+            })
 
-        const server = app.listen(4000);
-        console.log("server has been created");
 
     })
     .catch((err) => {

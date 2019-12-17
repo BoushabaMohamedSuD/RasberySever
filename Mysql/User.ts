@@ -1,4 +1,5 @@
-import { Model, Column, Table, BelongsToMany, Scopes, CreatedAt, UpdatedAt, HasMany, ForeignKey, AllowNull, Unique, NotNull, Default, HasOne } from "sequelize-typescript";
+import { Rasbery } from './Rasbery';
+import { Model, Column, Table, BelongsToMany, Scopes, CreatedAt, UpdatedAt, HasMany, ForeignKey, AllowNull, Unique, NotNull, Default, HasOne, BelongsTo } from "sequelize-typescript";
 import { UserInfo } from "./UserInfo";
 
 @Scopes(() => ({
@@ -58,6 +59,13 @@ export class User extends Model<User> {
 
     @HasOne(() => UserInfo, 'UserKey')
     UserInfoId?: UserInfo;
+
+
+    @ForeignKey(() => Rasbery)
+    RasberyId!: number;
+
+    @BelongsTo(() => Rasbery)
+    RasberyHolder?: Rasbery;
 
 
 
