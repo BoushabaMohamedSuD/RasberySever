@@ -49,6 +49,7 @@ export class UserisReady implements RasberyResponsabilities {
             User.findOne({ where: { username: this.data.username } })
                 .then((user) => {
                     if (user != null) {
+                        this.data.email = user.email;
                         if (user.isReady) {
                             if (this.Nextchaine != null) {
                                 console.log('going to next chaine');

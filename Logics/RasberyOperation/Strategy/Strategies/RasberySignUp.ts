@@ -18,14 +18,12 @@ export class RasberySignUp implements RasberyStrategy {
     private data: {
         username: string,
         email: string,
-        targetUsername: string,
     };
 
     constructor(request: Request<ParamsDictionary, any, any>, response: Response<any>) {
         this.data = {
             username: "",
             email: "",
-            targetUsername: "",
         };
         console.log(request.body);
         this.request = request;

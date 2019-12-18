@@ -6,18 +6,13 @@ import { User } from '../../../../Mysql/User';
 
 import { Observable, Observer } from 'rxjs';
 import { Request, ParamsDictionary, Response } from 'express-serve-static-core';
-export class RasberyisBlocked implements RasberyResponsabilities {
+export class UpdateData implements RasberyResponsabilities {
     private Nextchaine!: RasberyResponsabilities;
-    private request: Request<ParamsDictionary>;
-    private response: Response<any>;
     private data: any;
     private dataChange: any;
 
 
-    constructor(request: Request<ParamsDictionary, any, any>, response: Response<any>
-        , data: any, dataChange: any) {
-        this.request = request;
-        this.response = response;
+    constructor(data: any, dataChange: any) {
         this.data = data;
         this.dataChange = dataChange;
     }

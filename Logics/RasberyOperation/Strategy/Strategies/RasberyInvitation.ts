@@ -1,3 +1,5 @@
+import { SendEmailInvitation } from './../../Responsibilities/res/SendEmailInvitation';
+import { UpdateData } from './../../Responsibilities/res/UpdateData';
 import { RasberyResponsabilities } from './../../Responsibilities/containers/RasberyResponsabilities';
 import { FactoryStatus } from './../../Responsibilities/res/FactoryStatus';
 import { RequestVerification } from './../../Responsibilities/res/RequestVerification';
@@ -30,19 +32,20 @@ export class RasberyInvitation implements RasberyStrategy {
         this.response = response;
         this.chaine1 = new TokenVerification(request, response, this.data);
         const chaine2 = new UserisReady(request, response, this.data);
-        const chaine3 = FactoryAuthority.getAuthority(request, response, this.data, 'guest', 'check');
-        const chaine4 = new RasberyisBlocked(request, response, this.data);
-        const chaine5 = new RequestVerification(request, response, this.data);
-        const chaine6 = new UserToRasbery(request, response, this.data);
-        const chaine7 = FactoryStatus.setStatus(request, response, this.data, 'TurnOff');
-        const chaine8 = FactoryAuthority.getAuthority(request, response, this.data, 'admin', 'change')
+        const chaine3 = FactoryAuthority.getAuthority(request, response, this.data, 'admin', 'check');
+        const chaine4 = new UpdateData(this.data, {
+            username: this.request.body.targertname,
+        });
+        const chaine5 = new UserisReady(request, response, this.data);
+        const chaine6 = FactoryAuthority.getAuthority(request, response, this.data, 'guest', 'check')
+        const chaine7 = new SendEmailInvitation(request, response, this.data);
         this.chaine1.setNextChaine(chaine2);
         chaine2.setNextChaine(chaine3);
         chaine3.setNextChaine(chaine4);
         chaine4.setNextChaine(chaine5);
         chaine5.setNextChaine(chaine6);
         chaine6.setNextChaine(chaine7);
-        chaine7.setNextChaine(chaine8);
+
 
     }
 
