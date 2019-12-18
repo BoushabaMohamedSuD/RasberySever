@@ -11,21 +11,19 @@ import { RasberyStrategy } from '../containers/RasberyStrategy';
 
 import { Request, ParamsDictionary, Response } from 'express-serve-static-core';
 
-export class RasberySignUp implements RasberyStrategy {
+export class RasberyInvitation implements RasberyStrategy {
     private chaine1!: RasberyResponsabilities;
     private request: Request<ParamsDictionary>;
     private response: Response<any>;
     private data: {
         username: string,
         email: string,
-        targetUsername: string,
     };
 
     constructor(request: Request<ParamsDictionary, any, any>, response: Response<any>) {
         this.data = {
             username: "",
             email: "",
-            targetUsername: "",
         };
         console.log(request.body);
         this.request = request;

@@ -6,8 +6,24 @@ export class Test1 {
         /* this.data = data;
          this.data.username = "Mohamed";*/
         this.data = data;
-        data.username = 'Mohamed';
-        new Test2(this.data);
+        // this.data = JSON.parse(this.data);
+        console.log(this.data);
+
+        console.log(this.data.lenght);
+        console.log("---------");
+        console.log(this.data['lastname']);
+        this.data['lastname'] = 'dhjdss';
+        console.log(Object.keys(this.data));
+        //console.log(Object.va)
+        /*  let newdata={username:"mohamed"};
+          this.data = {
+              data,
+          };*/
+        console.log(Object.values(this.data));
+
+        this.data.username = 'Mohamed';
+        this.data[Object.keys(this.data)[0]] = "hello";
+        //new Test2(this.data);
         // console.log(this.data);
         i++;
         console.log("===========end");

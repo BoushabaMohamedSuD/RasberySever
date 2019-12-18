@@ -13,6 +13,7 @@ import e from 'express';
 
 const RouterAuthenticate = require('./router/Authenticate').router;
 const RouterUserInfo = require('./router/UserInfo').router;
+const RouterRabsery = require('./router/RasberryRegistering').router;
 
 
 const app = express();
@@ -36,7 +37,7 @@ app.use(bodyParser({ extended: false }));
 app.use('/images', express.static(__dirname + '/uploads/public/images'));
 app.use(RouterAuthenticate);
 app.use('/UserInfo', RouterUserInfo);
-app.use('/Rasbery', RouterUserInfo);
+app.use('/Rasbery', RouterRabsery);
 
 
 
