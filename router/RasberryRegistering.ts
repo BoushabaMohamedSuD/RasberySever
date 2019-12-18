@@ -1,3 +1,4 @@
+import { RasberyInvitationValidation } from './../Logics/RasberyOperation/Strategy/Strategies/RasberyInvitationValidation';
 import { RasberyInvitation } from './../Logics/RasberyOperation/Strategy/Strategies/RasberyInvitation';
 import { RasberySignUp } from './../Logics/RasberyOperation/Strategy/Strategies/RasberySignUp';
 import { RasberyContext } from './../Logics/RasberyOperation/Strategy/contents/RasberyContext';
@@ -35,13 +36,33 @@ router.post('/SendInvitation', (req, res) => {
         .then((resp) => {
             console.log(resp);
             if (!res.headersSent) {
-                res.send("rasbery registering true");
+                res.send("rasbery send invitation true");
             }
         })
         .catch((err) => {
             console.log(err);
             if (!res.headersSent) {
-                res.status(400).send("rasbery registering false");
+                res.status(400).send("rasbery send invitation false");
+            }
+        });
+
+});
+
+
+router.post('/InvitationValidation', (req, res) => {
+    console.log('send invitation to' + req.body.targetname);
+    new RasberyContext(new RasberyInvitationValidation(req, res))
+        .process()
+        .then((resp) => {
+            console.log(resp);
+            if (!res.headersSent) {
+                res.send("rasbery invitation validation true");
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+            if (!res.headersSent) {
+                res.status(400).send("rasbery invitation validation false");
             }
         });
 
