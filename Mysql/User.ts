@@ -1,6 +1,8 @@
+import { Notification } from './Notification';
 import { RasberySql } from './RasberySQL';
 import { Model, Column, Table, BelongsToMany, Scopes, CreatedAt, UpdatedAt, HasMany, ForeignKey, AllowNull, Unique, NotNull, Default, HasOne, BelongsTo } from "sequelize-typescript";
 import { UserInfo } from "./UserInfo";
+
 
 @Scopes(() => ({
     users: {
@@ -54,8 +56,6 @@ export class User extends Model<User> {
     @Column
     updatedAt!: Date;
 
-    /*@ForeignKey(() => UserInfo)
-    UserInfoKey!: number;*/
 
     @HasOne(() => UserInfo, 'UserKey')
     UserInfoId?: UserInfo;
@@ -66,6 +66,10 @@ export class User extends Model<User> {
 
     @BelongsTo(() => RasberySql)
     RasberyHolder?: RasberySql;
+
+
+    @HasMany(() => Notification, 'userId')
+    notifications?: Notification[];
 
 
 

@@ -1,3 +1,4 @@
+import { Notification } from './Notification';
 import { RasberySql } from './RasberySQL';
 // for connecting to databases in mysql workbunch
 export { };
@@ -20,5 +21,5 @@ export const sequelize = new Sequelize({
         acquire: 30000,
         idle: 10000
     },
-    models: [User, UserInfo, RasberySql],
+    models: [User, UserInfo, RasberySql, Notification],
 });
