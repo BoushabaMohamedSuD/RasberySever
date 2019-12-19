@@ -1,3 +1,4 @@
+import { IsReady } from './IsReady';
 import { User } from './../../../../Mysql/User';
 import { AuthenticateChaine } from '../containers/AuthenticateChaine';
 import { Observable, Observer, Subscription, Subject } from 'rxjs';
@@ -7,9 +8,13 @@ export class SignIn implements AuthenticateChaine {
     private Nextchaine!: AuthenticateChaine;
     private request: Request<ParamsDictionary>;
     private response: Response<any>;
-    constructor(request: Request<ParamsDictionary, any, any>, response: Response<any>) {
+    private data: any;
+
+
+    constructor(request: Request<ParamsDictionary, any, any>, response: Response<any>, data: any) {
         this.request = request;
         this.response = response;
+        this.data = data;
     }
 
     public setNextChaine(chaine: AuthenticateChaine): void {
@@ -47,6 +52,12 @@ export class SignIn implements AuthenticateChaine {
                 .then((user) => {
                     if (user != null) {
                         if (user.password == this.request.body.password) {
+                            this.data.username = user.username;
+                            this.data.email = user.email;
+                            this.data.state = user.state;
+                            this.data.authority = user.authority;
+                            this.data.IsReady = user.isReady;
+
                             User.update({ isActive: true }, { where: { username: this.request.body.username } })
                                 .then((resp) => {
                                     if (this.Nextchaine != null) {

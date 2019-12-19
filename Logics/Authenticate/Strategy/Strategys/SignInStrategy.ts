@@ -1,3 +1,5 @@
+import { GenerateTokenSignIn } from './../../ChaineOfResponsability/contents/GenerateTokenSignIn';
+import { StateChangement } from './../../ChaineOfResponsability/containers/StateChangement';
 import { SignIn } from '../../ChaineOfResponsability/contents/SignIn';
 import { AuthenticateChaine } from '../../ChaineOfResponsability/containers/AuthenticateChaine';
 import { AuthenticateStrategy } from '../Containers/AuthenticateStrategy';
@@ -9,11 +11,28 @@ export class SignInStrategy implements AuthenticateStrategy {
     private chaine1!: AuthenticateChaine;
     private request: Request<ParamsDictionary>;
     private response: Response<any>;
+    private data: {
+        username: string,
+        email: string,
+        state: number,
+        isReady: boolean,
+        authority: string,
+        token: string,
+
+    };
 
     constructor(request: Request<ParamsDictionary, any, any>, response: Response<any>) {
         console.log(request.body);
-        this.chaine1 = new SignIn(request, response);
-        const chaine2: AuthenticateChaine = new GenerateToken(request, response);
+        this.data = {
+            username: "",
+            email: "",
+            state: 0,
+            isReady: false,
+            authority: "",
+            token: "",
+        };
+        this.chaine1 = new SignIn(request, response, this.data);
+        const chaine2: AuthenticateChaine = new GenerateTokenSignIn(request, response, this.data);
         this.chaine1.setNextChaine(chaine2);
         this.request = request;
         this.response = response;
