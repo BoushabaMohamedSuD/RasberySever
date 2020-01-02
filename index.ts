@@ -14,6 +14,7 @@ import e from 'express';
 const RouterAuthenticate = require('./router/Authenticate').router;
 const RouterUserInfo = require('./router/UserInfo').router;
 const RouterRabsery = require('./router/RasberryRegistering').router;
+const RouterTest = require('./router/TestJohhnyFive').router;
 
 
 const app = express();
@@ -38,6 +39,7 @@ app.use('/images', express.static(__dirname + '/uploads/public/images'));
 app.use(RouterAuthenticate);
 app.use('/UserInfo', RouterUserInfo);
 app.use('/Rasbery', RouterRabsery);
+app.use('/Test', RouterTest);
 
 
 
@@ -73,18 +75,18 @@ app.use('/Rasbery', RouterRabsery);
 // });
 
 
-sequelize.sync(/*{ force: true }*/)
+sequelize.sync({ force: true })
     .then(() => {
         //just one time
-        /*RasberySql.create()
+        RasberySql.create()
             .then(() => {
-               
+
 
             })
             .catch((err) => {
                 console.log('connot create rasbery table');
                 console.log(err);
-            })*/
+            })
         const server = app.listen(4000);
         console.log("server has been created");
 

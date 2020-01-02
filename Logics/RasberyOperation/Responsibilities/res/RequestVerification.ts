@@ -66,7 +66,7 @@ export class RequestVerification implements RasberyResponsabilities {
                 }
 
             } else {
-                console.log("key and id is not valide");
+                console.log("key and id is not valide for rasbery");
                 observer.error(false);
             }
 
