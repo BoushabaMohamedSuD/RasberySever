@@ -8,7 +8,7 @@ const router = express.Router();
 
 //for testing 
 
-router.post('/LedTurnOn', (req, res) => {
+router.get('/LedTurnOn', (req, res) => {
 
 
 });

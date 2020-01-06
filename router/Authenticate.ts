@@ -85,7 +85,7 @@ router.post('/LogOut', (req, res) => {
         .catch((err) => {
             console.log(err);
             if (!res.headersSent) {
-                res.send("logout false");
+                res.status(400).send("logout false");
             }
         });
 })
