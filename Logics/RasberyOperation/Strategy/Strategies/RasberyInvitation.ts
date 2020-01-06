@@ -34,7 +34,7 @@ export class RasberyInvitation implements RasberyStrategy {
         const chaine2 = new UserisReady(request, response, this.data);
         const chaine3 = FactoryAuthority.getAuthority(request, response, this.data, 'admin', 'check');
         const chaine4 = new UpdateData(this.data, {
-            username: this.request.body.targertname,
+            username: this.request.body.targetname,
         });
         const chaine5 = new UserisReady(request, response, this.data);
         const chaine6 = FactoryAuthority.getAuthority(request, response, this.data, 'guest', 'check')
