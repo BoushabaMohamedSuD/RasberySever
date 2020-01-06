@@ -50,7 +50,7 @@ router.post('/SendInvitation', (req, res) => {
 });
 
 
-router.post('/InvitationValidation', (req, res) => {
+router.get('/InvitationValidation/:token', (req, res) => {
     console.log('send invitation to' + req.body.targetname);
     new RasberyContext(new RasberyInvitationValidation(req, res))
         .process()
