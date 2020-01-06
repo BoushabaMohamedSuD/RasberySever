@@ -35,9 +35,11 @@ export class RasberyInvitationValidation implements RasberyStrategy {
         const chaine2 = new UserisReady(request, response, this.data);
         const chaine3 = FactoryAuthority.getAuthority(request, response, this.data, 'guest', 'check');
         const chaine4 = new UserToRasbery(request, response, this.data);
+        const chaine5 = FactoryAuthority.getAuthority(request, response, this.data, 'member', 'change')
         this.chaine1.setNextChaine(chaine2);
         chaine2.setNextChaine(chaine3);
         chaine3.setNextChaine(chaine4);
+        chaine4.setNextChaine(chaine5);
 
 
 

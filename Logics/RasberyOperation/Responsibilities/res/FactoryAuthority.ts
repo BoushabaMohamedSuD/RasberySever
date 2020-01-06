@@ -1,3 +1,5 @@
+import { MemberChange } from './../Factories/Authority/AuthorityChange/MemberChange';
+import { MemberCheck } from './../Factories/Authority/AuthorityCheck/MemberCheck';
 import { RasberyResponsabilities } from './../containers/RasberyResponsabilities';
 import { AdminChange } from '../Factories/Authority/AuthorityChange/AdminChange';
 import { GuestChange } from '../Factories/Authority/AuthorityChange/GuestChange';
@@ -19,6 +21,9 @@ export class FactoryAuthority {
             } else if (access == 'admin') {
                 authority = new AdminCheck(request, response, data);
                 return authority;
+            } else if (access == 'member') {
+                authority = new MemberCheck(request, response, data);
+                return authority;
             }
         } else if (operation == 'change') {
             if (access == 'guest') {
@@ -26,6 +31,9 @@ export class FactoryAuthority {
                 return authority;
             } else if (access == 'admin') {
                 authority = new AdminChange(request, response, data);
+                return authority;
+            } else if (access == 'member') {
+                authority = new MemberChange(request, response, data);
                 return authority;
             }
         }
