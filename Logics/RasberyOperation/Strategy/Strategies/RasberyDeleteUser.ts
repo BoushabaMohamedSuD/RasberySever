@@ -35,7 +35,13 @@ export class RasberyDeleteUser implements RasberyStrategy {
         this.chaine1 = new TokenVerification(request, response, this.data);
         const chaine2 = new UserisReady(request, response, this.data);
         const chaine3 = FactoryAuthority.getAuthority(request, response, this.data, 'admin', 'check');
-        const chaine4 = new DeleteUser(request, response, this.data);
+        const chaine4 = new UpdateData(this.data, {
+            username: this.request.body.targetname,
+        });
+        const chaine5 = new UserisReady(request, response, this.data);
+        const chaine6 = FactoryAuthority.getAuthority(request, response, this.data, 'member', 'check');
+        const chaine7 = new DeleteUser(request, response, this.data);
+        const chaine8 = FactoryAuthority.getAuthority(request, response, this.data, 'guest', 'change');
 
         this.chaine1.setNextChaine(chaine2);
         chaine2.setNextChaine(chaine3);
