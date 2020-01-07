@@ -1,3 +1,4 @@
+import { RasberyGetAllMember } from './../Logics/RasberyOperation/Strategy/Strategies/RasberyGetAllMember';
 import { RasberyDeleteUser } from './../Logics/RasberyOperation/Strategy/Strategies/RasberyDeleteUser';
 import { RasberyInvitationValidation } from './../Logics/RasberyOperation/Strategy/Strategies/RasberyInvitationValidation';
 import { RasberyInvitation } from './../Logics/RasberyOperation/Strategy/Strategies/RasberyInvitation';
@@ -88,6 +89,28 @@ router.delete('/DeleteUserFromRasbery', (req, res) => {
         });
 
 });
+
+
+
+router.get('/getAllUsers', (req, res) => {
+    console.log('get All Members')
+    new RasberyContext(new RasberyGetAllMember(req, res))
+        .process()
+        .then((resp) => {
+            console.log(resp);
+            if (!res.headersSent) {
+                res.send("rasbery get all members true");
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+            if (!res.headersSent) {
+                res.status(400).send("rasbery get all members false");
+            }
+        });
+
+});
+
 
 
 exports.router = router;
