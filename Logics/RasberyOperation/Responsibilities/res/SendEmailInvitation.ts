@@ -68,7 +68,7 @@ export class SendEmailInvitation implements RasberyResponsabilities {
                 email: this.data.email,
                 type: "invitation"
             }, 'NodeJsIotSUD', { expiresIn: 60 * 60 * 24 }, (errToken, resToken) => {
-                let htmlMessage: string = "<a href='http://localhost:4000/AccepteInvitation/" + resToken + ">link text</a>";
+                let htmlMessage: string = "<a href='http://localhost:3000/ValidateInvitation/" + resToken + ">link text</a>";
                 transporter.sendMail({
                     from: 'Iot SUD ',
                     //in this case we permute the username with target name

@@ -48,26 +48,23 @@ export class RasberyInvitationValidation implements RasberyStrategy {
     public processOperation(): Promise<boolean> {
         console.log("Rasbery invitation validation startegy");
         return new Promise((resolve, reject) => {
-            if (Object.keys(this.request.body).length !== 0) {
-                this.chaine1.processOperation()
-                    .then((resp) => {
-                        if (resp) {
-                            console.log('succes in invitation validation strategy');
-                            resolve(true);
-                        } else {
-                            console.log('error in invitation validation strategy');
-                            reject(false);
-                        }
 
-                    })
-                    .catch((err) => {
+            this.chaine1.processOperation()
+                .then((resp) => {
+                    if (resp) {
+                        console.log('succes in invitation validation strategy');
+                        resolve(true);
+                    } else {
                         console.log('error in invitation validation strategy');
                         reject(false);
-                    })
-            } else {
-                console.log('request is null');
-                reject(false);
-            }
+                    }
+
+                })
+                .catch((err) => {
+                    console.log('error in invitation validation strategy');
+                    reject(false);
+                })
+
 
         });
 

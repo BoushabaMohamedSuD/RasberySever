@@ -51,7 +51,7 @@ router.post('/SendInvitation', (req, res) => {
 
 
 router.get('/InvitationValidation/:token', (req, res) => {
-    console.log('send invitation to' + req.body.targetname);
+    console.log('validate invitation')
     new RasberyContext(new RasberyInvitationValidation(req, res))
         .process()
         .then((resp) => {
