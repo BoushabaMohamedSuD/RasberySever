@@ -71,7 +71,7 @@ router.get('/InvitationValidation/:token', (req, res) => {
 });
 
 
-router.delete('/DeleteUserFromRasbery', (req, res) => {
+router.post('/DeleteUserFromRasbery', (req, res) => {
     console.log('detlet user from rasbery ' + req.body.targetname);
     new RasberyContext(new RasberyDeleteUser(req, res))
         .process()

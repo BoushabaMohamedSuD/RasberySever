@@ -46,6 +46,11 @@ export class RasberyDeleteUser implements RasberyStrategy {
         this.chaine1.setNextChaine(chaine2);
         chaine2.setNextChaine(chaine3);
         chaine3.setNextChaine(chaine4);
+        chaine4.setNextChaine(chaine5);
+        chaine5.setNextChaine(chaine6);
+        chaine6.setNextChaine(chaine7);
+        chaine7.setNextChaine(chaine8);
+
 
 
 

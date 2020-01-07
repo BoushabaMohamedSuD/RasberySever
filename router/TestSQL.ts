@@ -1,3 +1,4 @@
+import { User } from './../Mysql/User';
 import { RasberySql } from './../Mysql/RasberySQL';
 import { UserInfoHandlerStrategy } from './../Logics/Authenticate/Strategy/Strategys/UserInfoHandlerStrategy';
 import { AuthenticateContent } from './../Logics/Authenticate/Strategy/Contents/AuthenticateContent';
@@ -11,38 +12,40 @@ const router = express.Router();
 
 router.get('/test', (req, res) => {
     /* console.log("test");
-     let usernames: Array<string> = new Array<string>();
-     RasberySql.findOne({ where: { id: 1 } })
-         .then((rasbery) => {
-             if (rasbery != null) {
+     User.findOne({ where: { username: "Ahmed" } })
+         .then((user) => {
+             if (user != null) {
+                 user.$get('RasberyHolder')
+                     .then((rasbery) => {
+                         console.log(rasbery);
+                         if (rasbery != null) {
+                             user.$remove('RasberyHolder', rasbery)
+                                 .then(() => {
+                                     console.log("okkkkkkkkk");
  
-                 rasbery.$get('users')
-                     .then((users: any) => {
-                         if (users != null) {
-                             console.log(users.length);
-                             console.log(users[0].username);
-                             let i = 0;
-                             while (i < users.length) {
-                                 usernames.push(users[i].username);
-                                 i++;
-                             }
+                                 })
+                                 .catch((err) => {
+                                     console.log("we can't remove rasbery from user");
  
-                             res.json(usernames);
+                                 });
+                         } else {
+                             console.log("rasebry fetched from user is null");
+ 
                          }
                      })
                      .catch((err) => {
-                         console.log("we cannot fecth all users from rasbery");
-                         res.json(false);
-                     })
+                         console.log('can not get the rasbery from user');
+                         console.log(err);
  
+                     });
              } else {
-                 console.log("rasbery after fitching is null");
-                 res.json(false);
+ 
+                 console.log("user after fitching is null");
              }
          })
          .catch((err) => {
-             res.json(false);
-             console.log('can not find rasbery');
+ 
+             console.log('can not find user');
          });*/
 
 

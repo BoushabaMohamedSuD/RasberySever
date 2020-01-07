@@ -1,3 +1,4 @@
+import { RasberySql } from './../../../../Mysql/RasberySQL';
 import { RasberyResponsabilities } from './../containers/RasberyResponsabilities';
 import { User } from '../../../../Mysql/User';
 
@@ -46,13 +47,13 @@ export class DeleteUser implements RasberyResponsabilities {
     public process(): Observable<boolean> {
         return new Observable((observer: Observer<boolean>) => {
 
-            User.findOne({ where: { username: this.request.body.targetname } })
-                .then((user) => {
-                    if (user != null) {
-                        user.$get('RasberyHolder')
-                            .then((rasbery) => {
-                                if (rasbery != null) {
-                                    user.$remove('RasberyHolder', rasbery)
+            RasberySql.findOne({ where: { id: 1 } })
+                .then((MainRasbery) => {
+                    if (MainRasbery != null) {
+                        User.findOne({ where: { username: this.data.username } })
+                            .then((user) => {
+                                if (user != null) {
+                                    MainRasbery.$remove('users', user)
                                         .then(() => {
                                             if (this.Nextchaine != null) {
                                                 console.log('going to next chaine');
@@ -72,21 +73,20 @@ export class DeleteUser implements RasberyResponsabilities {
                                                 observer.next(true);
                                                 observer.complete();
                                             }
-
                                         })
                                         .catch((err) => {
-                                            console.log("we can't remove rasbery from user");
                                             observer.error(false);
-                                        });
+                                            console.log('we cannot remove user from rasbery');
+                                        })
                                 } else {
-                                    console.log("rasebry fetched from user is null");
+                                    console.log("user is null");
                                     observer.error(false);
                                 }
                             })
                             .catch((err) => {
-                                console.log('can not get the rasbery from user');
-                                observer.error(false);
-                            });
+                                observer.error(false)
+                                console.log("we cannot fing user");
+                            })
                     } else {
                         observer.error(false);
                         console.log("user after fitching is null");
@@ -107,3 +107,9 @@ export class DeleteUser implements RasberyResponsabilities {
 
 
 }
+
+
+/*
+
+
+*/
