@@ -56,7 +56,7 @@ export class SignIn implements AuthenticateChaine {
                             this.data.email = user.email;
                             this.data.state = user.state;
                             this.data.authority = user.authority;
-                            this.data.IsReady = user.isReady;
+                            this.data.isReady = user.isReady;
 
                             User.update({ isActive: true }, { where: { username: this.request.body.username } })
                                 .then((resp) => {
