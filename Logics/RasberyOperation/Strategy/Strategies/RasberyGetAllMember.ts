@@ -55,16 +55,16 @@ export class RasberyGetAllMember implements RasberyStrategy {
             this.chaine1.processOperation()
                 .then((resp) => {
                     if (resp) {
-                        console.log('succes in delete user   strategy');
+                        console.log('succes in get all members   strategy');
                         resolve(true);
                     } else {
-                        console.log('error in delete user  strategy');
+                        console.log('error in get all members  strategy');
                         reject(false);
                     }
 
                 })
                 .catch((err) => {
-                    console.log('error in delet user  strategy');
+                    console.log('error in get all members  strategy');
                     reject(false);
                 })
 

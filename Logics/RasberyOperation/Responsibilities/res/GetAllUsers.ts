@@ -61,7 +61,10 @@ export class GetAllUsers implements RasberyResponsabilities {
                                     console.log(users[0].username);
                                     let i = 0;
                                     while (i < users.length) {
-                                        this.data.usernames.push(users[i].username);
+                                        if (users[i].username != this.data.username) {
+                                            this.data.usernames.push(users[i].username);
+                                        }
+
                                         i++;
                                     }
                                     console.log(this.data.usernames);
@@ -105,6 +108,7 @@ export class GetAllUsers implements RasberyResponsabilities {
 
 
     }
+
 
 
 
