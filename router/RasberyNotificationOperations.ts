@@ -1,3 +1,4 @@
+import { RasberyGetNotificationsMember } from './../Logics/RasberyOperation/Strategy/Strategies/RasberyGetNotificationsMember';
 import { RasberyGetNotificationsAdmin } from './../Logics/RasberyOperation/Strategy/Strategies/RasberyGetNotificationsAdmin';
 import { RasberyTurnOffMotorMember } from './../Logics/RasberyOperation/Strategy/Strategies/RasberyTurnOffMotorMember';
 import { RasberyTurnOffMotorAdmin } from './../Logics/RasberyOperation/Strategy/Strategies/RasberyTurnOffMotorAdmin';
@@ -19,6 +20,26 @@ const router = express.Router();
 
 router.get('/GetAllNotificationAdmin', (req, res) => {
     new RasberyContext(new RasberyGetNotificationsAdmin(req, res))
+        .process()
+        .then((resp) => {
+            console.log(resp);
+            if (!res.headersSent) {
+                res.send("turn get all notification true");
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+            if (!res.headersSent) {
+                res.status(400).send("turn on motor admin  false");
+            }
+        });
+
+});
+
+
+
+router.get('/GetAllNotificationMember', (req, res) => {
+    new RasberyContext(new RasberyGetNotificationsMember(req, res))
         .process()
         .then((resp) => {
             console.log(resp);
