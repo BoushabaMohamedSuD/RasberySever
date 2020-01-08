@@ -17,6 +17,7 @@ const RouterRabsery = require('./router/RasberryRegistering').router;
 const RouterTest = require('./router/TestJohhnyFive').router;
 const RouterTestSQl = require('./router/TestSQL').router;
 const RouterRabseryOperation = require('./router/RasberyOperations').router;
+const RouterRabseryNotifications = require('./router/RasberyNotificationOperations').router;
 
 
 const app = express();
@@ -42,6 +43,8 @@ app.use(RouterAuthenticate);
 app.use('/UserInfo', RouterUserInfo);
 app.use('/Rasbery', RouterRabsery);
 app.use('/RasberyOperation', RouterRabseryOperation);
+app.use('/RasberyNotification', RouterRabseryNotifications);
+
 app.use('/Test', RouterTest);
 app.use('/TestSQl', RouterTestSQl);
 
