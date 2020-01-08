@@ -27,17 +27,17 @@ export class MotorStatusGet implements RasberyResponsabilities {
             this.process().subscribe(
                 (resp) => {
                     if (resp) {
-                        console.log('Turn off  achieved an response');
+                        console.log('Motor get status  achieved an response');
                         resolve(true);
                     }
                 },
                 (err) => {
-                    console.log('Error in Turn off');
+                    console.log('Error in Motor get status ');
                     reject(false);
 
                 },
                 () => {
-                    console.log('turn off  complete');
+                    console.log('Motor get status   complete');
                 }
             )
         });
