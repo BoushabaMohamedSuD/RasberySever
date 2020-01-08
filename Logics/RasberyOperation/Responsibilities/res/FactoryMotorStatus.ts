@@ -14,7 +14,7 @@ import { Request, Response, ParamsDictionary } from 'express-serve-static-core';
 
 export class FactoryMotorStatus {
 
-    public static setStatus(request: Request<ParamsDictionary>, response: Response<any>
+    public static OpStatus(request: Request<ParamsDictionary>, response: Response<any>
         , data: any, status: string, operation: string): RasberyResponsabilities {
         let MotorStatus;
         if (operation == 'get') {

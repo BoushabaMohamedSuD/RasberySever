@@ -1,3 +1,4 @@
+import { FactoryMotorStatus } from './../../Responsibilities/res/FactoryMotorStatus';
 import { SendEmailInvitation } from '../../Responsibilities/res/SendEmailInvitation';
 import { UpdateData } from '../../Responsibilities/res/UpdateData';
 import { RasberyResponsabilities } from '../../Responsibilities/containers/RasberyResponsabilities';
@@ -20,12 +21,14 @@ export class RasberyMotorGetStatusMember implements RasberyStrategy {
     private data: {
         username: string,
         email: string,
+        motorstatus: boolean,
     };
 
     constructor(request: Request<ParamsDictionary, any, any>, response: Response<any>) {
         this.data = {
             username: "",
             email: "",
+            motorstatus: false,
         };
         console.log(request.body);
         this.request = request;
@@ -33,6 +36,10 @@ export class RasberyMotorGetStatusMember implements RasberyStrategy {
         this.chaine1 = new TokenVerification(request, response, this.data);
         const chaine2 = new UserisReady(request, response, this.data);
         const chaine3 = FactoryAuthority.getAuthority(request, response, this.data, 'member', 'check');
+        const chaine4 = FactoryMotorStatus.OpStatus(request, response, this.data, '', 'get');
+        this.chaine1.setNextChaine(chaine2);
+        chaine2.setNextChaine(chaine3);
+        chaine3.setNextChaine(chaine4);
 
 
 
