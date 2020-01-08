@@ -1,3 +1,4 @@
+import { FactoryMotorStatus } from './../../Responsibilities/res/FactoryMotorStatus';
 import { AddNotification } from './../../Responsibilities/res/AddNotification';
 import { TurnOnMotor } from './../../Responsibilities/res/TurnOnMotor';
 import { InvitationValidation } from '../../Responsibilities/res/InvitationValidation';
@@ -39,12 +40,14 @@ export class RasberyTurnOnMotorMember implements RasberyStrategy {
         const chaine2 = new UserisReady(request, response, this.data);
         const chaine3 = FactoryAuthority.getAuthority(request, response, this.data, 'member', 'check');
         const chaine4 = new TurnOnMotor(request, response, this.data);
-        const chaine5 = new AddNotification(request, response, this.data);
+        const chaine5 = FactoryMotorStatus.OpStatus(request, response, this.data, 'on', 'set');
+        const chaine6 = new AddNotification(request, response, this.data);
+
         this.chaine1.setNextChaine(chaine2);
         chaine2.setNextChaine(chaine3);
         chaine3.setNextChaine(chaine4);
         chaine4.setNextChaine(chaine5);
-
+        chaine5.setNextChaine(chaine6);
 
 
     }
