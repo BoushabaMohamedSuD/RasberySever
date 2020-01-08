@@ -1,3 +1,5 @@
+import { RasberyTurnOffMotorMember } from './../Logics/RasberyOperation/Strategy/Strategies/RasberyTurnOffMotorMember';
+import { RasberyTurnOffMotorAdmin } from './../Logics/RasberyOperation/Strategy/Strategies/RasberyTurnOffMotorAdmin';
 import { RasberyTurnOnMotorMember } from './../Logics/RasberyOperation/Strategy/Strategies/RasberyTurnOnMotorMember';
 import { RasberyTurnOnMotorAdmin } from './../Logics/RasberyOperation/Strategy/Strategies/RasberyTurnOnMotorAdmin';
 import { RasberyGetAllMember } from './../Logics/RasberyOperation/Strategy/Strategies/RasberyGetAllMember';
@@ -47,6 +49,44 @@ router.get('/TurnOnMember', (req, res) => {
             console.log(err);
             if (!res.headersSent) {
                 res.status(400).send("turn on motor member  false");
+            }
+        });
+
+});
+
+
+router.get('/TurnOffAdmin', (req, res) => {
+    new RasberyContext(new RasberyTurnOffMotorAdmin(req, res))
+        .process()
+        .then((resp) => {
+            console.log(resp);
+            if (!res.headersSent) {
+                res.send("turn off motor admin true");
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+            if (!res.headersSent) {
+                res.status(400).send("turn off motor admin  false");
+            }
+        });
+
+});
+
+
+router.get('/TurnOffMember', (req, res) => {
+    new RasberyContext(new RasberyTurnOffMotorMember(req, res))
+        .process()
+        .then((resp) => {
+            console.log(resp);
+            if (!res.headersSent) {
+                res.send("turn off motor memeber true");
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+            if (!res.headersSent) {
+                res.status(400).send("turn off motor member  false");
             }
         });
 

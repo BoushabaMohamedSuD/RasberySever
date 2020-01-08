@@ -17,7 +17,7 @@ import { RasberyStrategy } from '../containers/RasberyStrategy';
 
 import { Request, ParamsDictionary, Response } from 'express-serve-static-core';
 
-export class RasberyTurnOffMotorAdmin implements RasberyStrategy {
+export class RasberyTurnOffMotorMember implements RasberyStrategy {
     private chaine1!: RasberyResponsabilities;
     private request: Request<ParamsDictionary>;
     private response: Response<any>;

@@ -26,6 +26,11 @@ export class RasberySql extends Model<RasberySql> {
     @Column
     isBlocked!: boolean;
 
+    @AllowNull(false)
+    @Default(false)
+    @Column
+    isActive!: boolean;
+
     @CreatedAt
     @Column
     createdAt!: Date;
