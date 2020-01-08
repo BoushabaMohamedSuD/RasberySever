@@ -85,15 +85,15 @@ app.use('/TestSQl', RouterTestSQl);
 sequelize.sync(/*{ force: true }*/)
     .then(() => {
         //just one time
-        /*  RasberySql.create()
-              .then(() => {
-  
-  
-              })
-              .catch((err) => {
-                  console.log('connot create rasbery table');
-                  console.log(err);
-              })*/
+        /* RasberySql.create()
+             .then(() => {
+ 
+ 
+             })
+             .catch((err) => {
+                 console.log('connot create rasbery table');
+                 console.log(err);
+             })*/
         const server = app.listen(4000);
         console.log("server has been created");
 
