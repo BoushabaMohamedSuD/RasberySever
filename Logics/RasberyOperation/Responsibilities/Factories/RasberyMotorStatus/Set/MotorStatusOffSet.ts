@@ -49,7 +49,7 @@ export class MotorStatusSetOff implements RasberyResponsabilities {
 
     public process(): Observable<boolean> {
         return new Observable((observer: Observer<boolean>) => {
-            RasberySql.update({ IsActive: false }, { where: { id: 1 } })
+            RasberySql.update({ isActive: false }, { where: { id: 1 } })
                 .then(() => {
 
                     if (this.Nextchaine != null) {
