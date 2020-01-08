@@ -1,3 +1,4 @@
+import { AddNotification } from './../../Responsibilities/res/AddNotification';
 import { TurnOnMotor } from './../../Responsibilities/res/TurnOnMotor';
 import { InvitationValidation } from '../../Responsibilities/res/InvitationValidation';
 import { SendEmailInvitation } from '../../Responsibilities/res/SendEmailInvitation';
@@ -38,29 +39,31 @@ export class RasberyTurnOnMotorAdmin implements RasberyStrategy {
         const chaine2 = new UserisReady(request, response, this.data);
         const chaine3 = FactoryAuthority.getAuthority(request, response, this.data, 'admin', 'check');
         const chaine4 = new TurnOnMotor(request, response, this.data);
+        const chaine5 = new AddNotification(request, response, this.data);
         this.chaine1.setNextChaine(chaine2);
         chaine2.setNextChaine(chaine3);
         chaine3.setNextChaine(chaine4);
+        chaine4.setNextChaine(chaine5);
 
     }
 
     public processOperation(): Promise<boolean> {
-        console.log("Rasbery invitation validation startegy");
+        console.log("Rasbery trun on motor admin startegy");
         return new Promise((resolve, reject) => {
 
             this.chaine1.processOperation()
                 .then((resp) => {
                     if (resp) {
-                        console.log('succes in invitation validation strategy');
+                        console.log('succes in trun on motor admin strategy');
                         resolve(true);
                     } else {
-                        console.log('error in invitation validation strategy');
+                        console.log('error in trun on motor admin strategy');
                         reject(false);
                     }
 
                 })
                 .catch((err) => {
-                    console.log('error in invitation validation strategy');
+                    console.log('error in trun on motor admin strategy');
                     reject(false);
                 })
 

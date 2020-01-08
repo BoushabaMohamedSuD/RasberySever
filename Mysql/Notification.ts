@@ -15,12 +15,9 @@ export class Notification extends Model<Notification> {
     @Column
     sendername!: string;
 
-
     @AllowNull(false)
     @Column
     message!: string;
-
-
 
 
     @CreatedAt
