@@ -12,7 +12,11 @@ export class Notification extends Model<Notification> {
 
 
     @AllowNull(false)
-    @Unique
+    @Column
+    sendername!: string;
+
+
+    @AllowNull(false)
     @Column
     message!: string;
 
@@ -28,11 +32,6 @@ export class Notification extends Model<Notification> {
     updatedAt!: Date;
 
 
-    @ForeignKey(() => User)
-    userId!: number;
-
-    @BelongsTo(() => User)
-    UserId?: User;
 
 
 

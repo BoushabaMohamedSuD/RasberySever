@@ -22,12 +22,14 @@ export class RasberyTurnOnMotorAdmin implements RasberyStrategy {
     private data: {
         username: string,
         email: string,
+        message: string,
     };
 
     constructor(request: Request<ParamsDictionary, any, any>, response: Response<any>) {
         this.data = {
             username: "",
             email: "",
+            message: "turn on the motor"
         };
         console.log(request.body);
         this.request = request;
@@ -36,7 +38,9 @@ export class RasberyTurnOnMotorAdmin implements RasberyStrategy {
         const chaine2 = new UserisReady(request, response, this.data);
         const chaine3 = FactoryAuthority.getAuthority(request, response, this.data, 'admin', 'check');
         const chaine4 = new TurnOnMotor(request, response, this.data);
-
+        this.chaine1.setNextChaine(chaine2);
+        chaine2.setNextChaine(chaine3);
+        chaine3.setNextChaine(chaine4);
 
     }
 

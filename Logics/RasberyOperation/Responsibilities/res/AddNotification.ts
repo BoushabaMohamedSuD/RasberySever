@@ -47,61 +47,39 @@ export class AddNotification implements RasberyResponsabilities {
     public process(): Observable<boolean> {
         return new Observable((observer: Observer<boolean>) => {
 
-            User.findOne({ where: { username: this.data.username } })
-                .then((user) => {
-                    if (user != null) {
-                        Notification.create({ message: this.request.body.message })
-                            .then((notification) => {
-                                if (notification != null) {
-                                    user.$add('notifications', notification)
-                                        .then(() => {
-                                            if (this.Nextchaine != null) {
-                                                console.log('going to next chaine');
-                                                this.Nextchaine.processOperation()
-                                                    .then((resp) => {
-                                                        console.log(resp);
-                                                        observer.next(true);
-                                                        observer.complete();
-                                                    })
-                                                    .catch((err) => {
-                                                        console.log(err);
-                                                        console.log('Error');
-                                                        observer.error(false);
-                                                    });
-                                            } else {
-                                                console.log('this is the end of the chaine');
-                                                observer.next(true);
-                                                observer.complete();
-                                            }
-
-                                        })
-                                        .catch((err) => {
-                                            console.log("we can not add notification to user");
-                                            observer.error(false);
-                                        })
-                                } else {
-                                    console.log("ntification is null");
-                                    observer.error(false);
-                                }
-
+            Notification.create({
+                sendername: this.data.username,
+                message: this.data.message,
+            })
+                .then(() => {
+                    if (this.Nextchaine != null) {
+                        console.log('going to next chaine');
+                        this.Nextchaine.processOperation()
+                            .then((resp) => {
+                                console.log(resp);
+                                observer.next(true);
+                                observer.complete();
                             })
                             .catch((err) => {
-                                console.log("we can not create notification");
+                                console.log(err);
+                                console.log('Error');
                                 observer.error(false);
-                            })
+                            });
                     } else {
-                        observer.error(false);
-                        console.log("user after fitching is null");
+                        console.log('this is the end of the chaine');
+                        observer.next(true);
+                        observer.complete();
                     }
                 })
-                .catch((err) => {
+                .catch(err => {
+                    console.log("we cannot create notification");
                     observer.error(false);
-                    console.log('can not find user');
-                });
+                })
 
 
 
         });
+
 
 
     }
