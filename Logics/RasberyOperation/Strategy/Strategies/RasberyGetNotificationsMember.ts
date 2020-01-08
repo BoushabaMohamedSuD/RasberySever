@@ -1,3 +1,4 @@
+import { GetAllNotifications } from './../../Responsibilities/res/GetAllNotifications';
 import { GetAllUsers } from '../../Responsibilities/res/GetAllUsers';
 import { DeleteUser } from '../../Responsibilities/res/DeleteUser';
 import { SendEmailInvitation } from '../../Responsibilities/res/SendEmailInvitation';
@@ -44,10 +45,11 @@ export class RasberyGetNotificationsMember implements RasberyStrategy {
         this.chaine1 = new TokenVerification(request, response, this.data);
         const chaine2 = new UserisReady(request, response, this.data);
         const chaine3 = FactoryAuthority.getAuthority(request, response, this.data, 'member', 'check');
-
+        const chaine4 = new GetAllNotifications(request, response, this.data);
 
         this.chaine1.setNextChaine(chaine2);
         chaine2.setNextChaine(chaine3);
+        chaine3.setNextChaine(chaine4);
 
 
 
