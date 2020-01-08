@@ -13,7 +13,7 @@ import { RasberyStrategy } from '../containers/RasberyStrategy';
 
 import { Request, ParamsDictionary, Response } from 'express-serve-static-core';
 
-export class RasberyGetStatusMember implements RasberyStrategy {
+export class RasberyMotorGetStatusMember implements RasberyStrategy {
     private chaine1!: RasberyResponsabilities;
     private request: Request<ParamsDictionary>;
     private response: Response<any>;

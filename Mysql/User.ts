@@ -68,8 +68,6 @@ export class User extends Model<User> {
     RasberyHolder?: RasberySql;
 
 
-    @HasMany(() => Notification, 'userId')
-    notifications?: Notification[];
 
 
 
