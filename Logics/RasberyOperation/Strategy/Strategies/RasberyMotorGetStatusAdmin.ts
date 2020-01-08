@@ -49,26 +49,23 @@ export class RasberyMotorGetStatusAdmin implements RasberyStrategy {
     public processOperation(): Promise<boolean> {
         console.log("Rasbery invitation startegy");
         return new Promise((resolve, reject) => {
-            if (Object.keys(this.request.body).length !== 0) {
-                this.chaine1.processOperation()
-                    .then((resp) => {
-                        if (resp) {
-                            console.log('succes in invitation  strategy');
-                            resolve(true);
-                        } else {
-                            console.log('error in invitation strategy');
-                            reject(false);
-                        }
 
-                    })
-                    .catch((err) => {
-                        console.log('error in inviattion strategy');
+            this.chaine1.processOperation()
+                .then((resp) => {
+                    if (resp) {
+                        console.log('succes in invitation  strategy');
+                        resolve(true);
+                    } else {
+                        console.log('error in invitation strategy');
                         reject(false);
-                    })
-            } else {
-                console.log('request is null');
-                reject(false);
-            }
+                    }
+
+                })
+                .catch((err) => {
+                    console.log('error in inviattion strategy');
+                    reject(false);
+                })
+
 
         });
 
