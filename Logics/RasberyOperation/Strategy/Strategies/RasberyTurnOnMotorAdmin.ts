@@ -39,15 +39,17 @@ export class RasberyTurnOnMotorAdmin implements RasberyStrategy {
         this.chaine1 = new TokenVerification(request, response, this.data);
         const chaine2 = new UserisReady(request, response, this.data);
         const chaine3 = FactoryAuthority.getAuthority(request, response, this.data, 'admin', 'check');
-        const chaine4 = new TurnOnMotor(request, response, this.data);
-        const chaine5 = FactoryMotorStatus.OpStatus(request, response, this.data, 'on', 'set');
-        const chaine6 = new AddNotification(request, response, this.data);
+        const chaine4 = FactoryMotorStatus.OpStatus(request, response, this.data, 'off', 'check');
+        const chaine5 = new TurnOnMotor(request, response, this.data);
+        const chaine6 = FactoryMotorStatus.OpStatus(request, response, this.data, 'on', 'set');
+        const chaine7 = new AddNotification(request, response, this.data);
 
         this.chaine1.setNextChaine(chaine2);
         chaine2.setNextChaine(chaine3);
         chaine3.setNextChaine(chaine4);
         chaine4.setNextChaine(chaine5);
         chaine5.setNextChaine(chaine6);
+        chaine6.setNextChaine(chaine7);
 
     }
 
