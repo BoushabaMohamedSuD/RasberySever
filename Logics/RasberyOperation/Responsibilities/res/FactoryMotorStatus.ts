@@ -1,3 +1,5 @@
+import { MotorStatusOffCheck } from './../Factories/RasberyMotorStatus/Check/MotorStatusOffCheck';
+import { MotorStatusOnCheck } from './../Factories/RasberyMotorStatus/Check/MotorStatusOnCheck';
 import { MotorStatusSetOff } from './../Factories/RasberyMotorStatus/Set/MotorStatusOffSet';
 import { MotorStatusSetOn } from './../Factories/RasberyMotorStatus/Set/MotorStatusOnSet';
 import { MotorStatusGet } from './../Factories/RasberyMotorStatus/Get/MotorStatusGet';
@@ -26,6 +28,14 @@ export class FactoryMotorStatus {
                 return MotorStatus;
             } else if (status == 'off') {
                 MotorStatus = new MotorStatusSetOff(request, response, data);
+                return MotorStatus;
+            }
+        } else if (operation == 'check') {
+            if (status == 'on') {
+                MotorStatus = new MotorStatusOnCheck(request, response, data);
+                return MotorStatus;
+            } else if (status == 'off') {
+                MotorStatus = new MotorStatusOffCheck(request, response, data);
                 return MotorStatus;
             }
         }
