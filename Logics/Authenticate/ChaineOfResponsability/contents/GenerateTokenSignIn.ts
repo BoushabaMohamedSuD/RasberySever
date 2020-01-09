@@ -54,7 +54,7 @@ export class GenerateTokenSignIn implements AuthenticateChaine {
                             id: user.id,
                             username: user.username,
                             email: user.email,
-                        }, 'NodeJsIotSUD', { expiresIn: 60 * 5 }, (errToken, resToken) => {
+                        }, 'NodeJsIotSUD', { expiresIn: 60 * 60 * 24 * 12 }, (errToken, resToken) => {
                             if (!errToken) {
                                 if (this.Nextchaine != null) {
                                     console.log('going to next chaine');
