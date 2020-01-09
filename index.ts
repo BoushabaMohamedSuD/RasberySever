@@ -8,7 +8,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import { sequelize } from './Mysql/MysqlConnectivity';
 import { RasberySql } from './Mysql/RasberySQL';
-import e from 'express';
+
 
 
 const RouterAuthenticate = require('./router/Authenticate').router;
@@ -95,6 +95,14 @@ sequelize.sync(/*{ force: true }*/)
                  console.log(err);
              })*/
         const server = app.listen(4000);
+        let SocketENV = require('socket.io').listen(server);
+        SocketENV.on('connection', (socket: any) => {
+            console.log("::::::::::::::::::::::::::::::::");
+            console.log('Un client est connecté !');
+            console.log("::::::::::::::::::::::::::::::::");
+
+
+        });
         console.log("server has been created");
 
 
