@@ -1,3 +1,4 @@
+import { SocketInfo } from './proprieties/SocketInfo';
 
 import { RasberyId } from './proprieties/RasberyId';
 export { };
@@ -100,6 +101,8 @@ sequelize.sync(/*{ force: true }*/)
             console.log("::::::::::::::::::::::::::::::::");
             console.log('Un client est connecté !');
             console.log("::::::::::::::::::::::::::::::::");
+            SocketENV.emit('test', 'test');
+            SocketInfo.getInstance().setSocket(SocketENV);
 
 
         });

@@ -13,7 +13,7 @@ export class SocketInfo {
 
     }
 
-    public getSocket(): string {
+    public getSocket(): any {
         return this.socket;
     }
 
