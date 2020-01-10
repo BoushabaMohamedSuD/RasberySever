@@ -1,3 +1,4 @@
+import { FactorySocket } from './../../Responsibilities/res/FactorySocket';
 import { FactoryMotorStatus } from './../../Responsibilities/res/FactoryMotorStatus';
 import { AddNotification } from './../../Responsibilities/res/AddNotification';
 import { TurnOnMotor } from './../../Responsibilities/res/TurnOnMotor';
@@ -40,9 +41,11 @@ export class RasberyTurnOnMotorMember implements RasberyStrategy {
         const chaine2 = new UserisReady(request, response, this.data);
         const chaine3 = FactoryAuthority.getAuthority(request, response, this.data, 'member', 'check');
         const chaine4 = FactoryMotorStatus.OpStatus(request, response, this.data, 'off', 'check');
-        const chaine5 = new TurnOnMotor(request, response, this.data);
-        const chaine6 = FactoryMotorStatus.OpStatus(request, response, this.data, 'on', 'set');
-        const chaine7 = new AddNotification(request, response, this.data);
+        const chaine5 = FactorySocket.OpRuntime(request, response, this.data, 'wait');
+        const chaine6 = new TurnOnMotor(request, response, this.data);
+        const chaine7 = FactoryMotorStatus.OpStatus(request, response, this.data, 'on', 'set');
+        const chaine8 = new AddNotification(request, response, this.data);
+        const chaine9 = FactorySocket.OpRuntime(request, response, this.data, 'turnon');
 
         this.chaine1.setNextChaine(chaine2);
         chaine2.setNextChaine(chaine3);
@@ -50,7 +53,8 @@ export class RasberyTurnOnMotorMember implements RasberyStrategy {
         chaine4.setNextChaine(chaine5);
         chaine5.setNextChaine(chaine6);
         chaine6.setNextChaine(chaine7);
-
+        chaine7.setNextChaine(chaine8);
+        chaine8.setNextChaine(chaine9);
 
     }
 

@@ -12,9 +12,9 @@ import { Request, Response, ParamsDictionary } from 'express-serve-static-core';
 
 
 
-export class FactoryStatus {
+export class FactorySocket {
 
-    public static setStatus(request: Request<ParamsDictionary>, response: Response<any>
+    public static OpRuntime(request: Request<ParamsDictionary>, response: Response<any>
         , data: any, operation: string): RasberyResponsabilities {
 
         if (operation == 'turnon') {
