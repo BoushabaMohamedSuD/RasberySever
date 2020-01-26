@@ -138,6 +138,7 @@ router.get('/MotorStatusMember', (req, res) => {
 
 
 
+
 router.get('/RequestForgetPassword', (req, res) => {
     new RasberyContext(new RasberyRequestForgetPassword(req, res))
         .process()
@@ -151,6 +152,25 @@ router.get('/RequestForgetPassword', (req, res) => {
             console.log(err);
             if (!res.headersSent) {
                 res.status(400).send("RequestForgetPasswor false");
+            }
+        });
+
+});
+
+
+router.get('/RequestUpdateForgetPassword', (req, res) => {
+    new RasberyContext(new RasberyRequestForgetPassword(req, res))
+        .process()
+        .then((resp) => {
+            console.log(resp);
+            if (!res.headersSent) {
+                res.send(" RequestUpdateForgetPasswor true");
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+            if (!res.headersSent) {
+                res.status(400).send("RequestUpdateForgetPasswor false");
             }
         });
 
