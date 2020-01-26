@@ -22,14 +22,14 @@ export class RasberyUpdatePassword implements RasberyStrategy {
     private data: {
         username: string,
         email: string,
-        motorstatus: boolean,
+        type: string
     };
 
     constructor(request: Request<ParamsDictionary, any, any>, response: Response<any>) {
         this.data = {
             username: "",
             email: "",
-            motorstatus: false,
+            type: "",
         };
         console.log(request.body);
         this.request = request;
@@ -40,16 +40,16 @@ export class RasberyUpdatePassword implements RasberyStrategy {
     }
 
     public processOperation(): Promise<boolean> {
-        console.log("Rasbery request forget password startegy");
+        console.log("Rasbery request update forget password startegy");
         return new Promise((resolve, reject) => {
 
             this.chaine1.processOperation()
                 .then((resp) => {
                     if (resp) {
-                        console.log('succes in request forget password   strategy');
+                        console.log('succes in request update forget password   strategy');
                         resolve(true);
                     } else {
-                        console.log('error in request forget password  strategy');
+                        console.log('error in request u^date forget password  strategy');
                         reject(false);
                     }
 

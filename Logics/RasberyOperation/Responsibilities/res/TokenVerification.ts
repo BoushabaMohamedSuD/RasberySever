@@ -58,6 +58,7 @@ export class TokenVerification implements RasberyResponsabilities {
                         if (authdata.username == this.request.header('Username') as string) {
                             this.data.username = authdata.username;
                             this.data.email = authdata.email;
+                            this.data.type = authdata.type;
                             if (this.Nextchaine != null) {
                                 console.log('going to next chaine');
                                 this.Nextchaine.processOperation()

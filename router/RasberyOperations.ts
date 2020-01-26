@@ -1,3 +1,4 @@
+import { RasberyUpdatePassword } from './../Logics/RasberyOperation/Strategy/Strategies/RasberyUpdatePassword';
 import { RasberyMotorGetStatusMember } from './../Logics/RasberyOperation/Strategy/Strategies/RasberyMotorGetStatusMember';
 import { RasberyMotorGetStatusAdmin } from './../Logics/RasberyOperation/Strategy/Strategies/RasberyMotorGetStatusAdmin';
 import { RasberyTurnOffMotorMember } from './../Logics/RasberyOperation/Strategy/Strategies/RasberyTurnOffMotorMember';
@@ -158,8 +159,8 @@ router.get('/RequestForgetPassword', (req, res) => {
 });
 
 
-router.get('/RequestUpdateForgetPassword', (req, res) => {
-    new RasberyContext(new RasberyRequestForgetPassword(req, res))
+router.post('/RequestUpdateForgetPassword', (req, res) => {
+    new RasberyContext(new RasberyUpdatePassword(req, res))
         .process()
         .then((resp) => {
             console.log(resp);

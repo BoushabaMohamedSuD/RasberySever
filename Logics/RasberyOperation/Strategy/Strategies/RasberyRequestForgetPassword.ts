@@ -22,14 +22,12 @@ export class RasberyRequestForgetPassword implements RasberyStrategy {
     private data: {
         username: string,
         email: string,
-        motorstatus: boolean,
     };
 
     constructor(request: Request<ParamsDictionary, any, any>, response: Response<any>) {
         this.data = {
             username: "",
             email: "",
-            motorstatus: false,
         };
         console.log(request.body);
         this.request = request;
