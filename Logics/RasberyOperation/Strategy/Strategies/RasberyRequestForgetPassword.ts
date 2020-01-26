@@ -1,3 +1,4 @@
+import { SendEmailForgetPassword } from './../../Responsibilities/res/SendEmailForgetPassword';
 import { FactoryMotorStatus } from './../../Responsibilities/res/FactoryMotorStatus';
 import { SendEmailInvitation } from '../../Responsibilities/res/SendEmailInvitation';
 import { UpdateData } from '../../Responsibilities/res/UpdateData';
@@ -14,7 +15,7 @@ import { RasberyStrategy } from '../containers/RasberyStrategy';
 
 import { Request, ParamsDictionary, Response } from 'express-serve-static-core';
 
-export class RasberyMotorGetStatusMember implements RasberyStrategy {
+export class RasberyRequestForgetPassword implements RasberyStrategy {
     private chaine1!: RasberyResponsabilities;
     private request: Request<ParamsDictionary>;
     private response: Response<any>;
@@ -33,7 +34,7 @@ export class RasberyMotorGetStatusMember implements RasberyStrategy {
         console.log(request.body);
         this.request = request;
         this.response = response;
-
+        this.chaine1 = new SendEmailForgetPassword(this.request, this.response, this.data);
 
 
     }
