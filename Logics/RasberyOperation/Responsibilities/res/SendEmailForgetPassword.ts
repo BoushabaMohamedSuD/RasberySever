@@ -64,8 +64,7 @@ export class SendEmailForgetPassword implements RasberyResponsabilities {
                 },
             });
             jwt.sign({
-                username: this.data.username,
-                email: this.data.email,
+                email: this.request.body.email,
                 type: "ForgetPassword"
             }, 'NodeJsIotSUD', { expiresIn: 60 * 60 * 24 }, (errToken, resToken) => {
                 let htmlMessage: string = "<a href='http://localhost:3000/ForgetPasswordUpdate/" + resToken + ">link text</a>";
@@ -73,7 +72,7 @@ export class SendEmailForgetPassword implements RasberyResponsabilities {
                     from: 'Iot SUD ',
                     //in this case we permute the username with target name
                     //and in is ready we permute email by target email
-                    to: this.data.email,
+                    to: this.request.body.email,
                     subject: 'Forget Password',
                     text: "change your password",
                     html: htmlMessage

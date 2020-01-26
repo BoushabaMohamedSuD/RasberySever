@@ -140,7 +140,7 @@ router.get('/MotorStatusMember', (req, res) => {
 
 
 
-router.get('/RequestForgetPassword', (req, res) => {
+router.post('/RequestForgetPassword', (req, res) => {
     new RasberyContext(new RasberyRequestForgetPassword(req, res))
         .process()
         .then((resp) => {
