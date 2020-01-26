@@ -14,6 +14,7 @@ import { RasberyContext } from './../Logics/RasberyOperation/Strategy/contents/R
 
 import express from 'express';
 import { AuthorizationUserInfo } from '../Logics/Authenticate/Strategy/Strategys/AuthorizationUserInfo';
+import { RasberyRequestForgetPassword } from '../Logics/RasberyOperation/Strategy/Strategies/RasberyRequestForgetPassword';
 const router = express.Router();
 
 
@@ -129,6 +130,27 @@ router.get('/MotorStatusMember', (req, res) => {
             console.log(err);
             if (!res.headersSent) {
                 res.status(400).send("motor  get statusm member false");
+            }
+        });
+
+});
+
+
+
+
+router.get('/RequestForgetPassword', (req, res) => {
+    new RasberyContext(new RasberyRequestForgetPassword(req, res))
+        .process()
+        .then((resp) => {
+            console.log(resp);
+            if (!res.headersSent) {
+                res.send(" RequestForgetPasswor true");
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+            if (!res.headersSent) {
+                res.status(400).send("RequestForgetPasswor false");
             }
         });
 
