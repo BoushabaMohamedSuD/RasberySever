@@ -1,9 +1,9 @@
-import { User } from './../../../../Mysql/User';
-import { RasberySql } from './../../../../Mysql/RasberySQL';
-import { RasberyResponsabilities } from './../containers/RasberyResponsabilities';
+import { User } from '../../../../Mysql/User';
+import { RasberySql } from '../../../../Mysql/RasberySQL';
+import { RasberyResponsabilities } from '../containers/RasberyResponsabilities';
 import { Observable, Observer } from 'rxjs';
 import { Request, ParamsDictionary, Response } from 'express-serve-static-core';
-export class UpdateForgettenPassword implements RasberyResponsabilities {
+export class UpdatePassword implements RasberyResponsabilities {
     private Nextchaine!: RasberyResponsabilities;
     private request: Request<ParamsDictionary>;
     private response: Response<any>;
@@ -25,17 +25,17 @@ export class UpdateForgettenPassword implements RasberyResponsabilities {
             this.process().subscribe(
                 (resp) => {
                     if (resp) {
-                        console.log('UpdateForgettenPassword achieved an response');
+                        console.log('UpdatePassword achieved an response');
                         resolve(true);
                     }
                 },
                 (err) => {
-                    console.log('Error in UpdateForgettenPassword');
+                    console.log('Error in UpdatePassword');
                     reject(false);
 
                 },
                 () => {
-                    console.log('UpdateForgettenPassword  complete');
+                    console.log('UpdatePassword  complete');
                 }
             )
         });

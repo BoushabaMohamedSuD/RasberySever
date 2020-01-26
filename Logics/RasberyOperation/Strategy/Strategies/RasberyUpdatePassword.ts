@@ -1,3 +1,7 @@
+import { UpdatePassword } from './../../Responsibilities/res/UpdatePassword';
+import { ForgetPasswordTokenValidation } from './../../Responsibilities/res/ForgetPasswordTokenValidation';
+
+import { VerifyToken } from './../../../Authenticate/ChaineOfResponsability/contents/VerifyToken';
 import { SendEmailForgetPassword } from './../../Responsibilities/res/SendEmailForgetPassword';
 import { FactoryMotorStatus } from './../../Responsibilities/res/FactoryMotorStatus';
 import { SendEmailInvitation } from '../../Responsibilities/res/SendEmailInvitation';
@@ -34,8 +38,9 @@ export class RasberyUpdatePassword implements RasberyStrategy {
         console.log(request.body);
         this.request = request;
         this.response = response;
-
-
+        this.chaine1 = new ForgetPasswordTokenValidation(this.request, this.response, this.data);
+        const chaine2 = new UpdatePassword(this.request, this.response, this.data);
+        this.chaine1.setNextChaine(chaine2);
 
     }
 

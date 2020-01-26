@@ -159,7 +159,7 @@ router.get('/RequestForgetPassword', (req, res) => {
 });
 
 
-router.post('/RequestUpdateForgetPassword', (req, res) => {
+router.post('/RequestUpdateForgetPassword/:token', (req, res) => {
     new RasberyContext(new RasberyUpdatePassword(req, res))
         .process()
         .then((resp) => {

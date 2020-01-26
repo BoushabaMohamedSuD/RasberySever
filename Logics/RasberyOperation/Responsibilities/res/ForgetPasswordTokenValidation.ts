@@ -4,7 +4,7 @@ import { User } from '../../../../Mysql/User';
 import { Observable, Observer } from 'rxjs';
 import { Request, ParamsDictionary, Response } from 'express-serve-static-core';
 import jwt from 'jsonwebtoken';
-export class ForgetPasswordTokenVerification implements RasberyResponsabilities {
+export class ForgetPasswordTokenValidation implements RasberyResponsabilities {
     private Nextchaine!: RasberyResponsabilities;
     private request: Request<ParamsDictionary>;
     private response: Response<any>;
