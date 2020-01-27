@@ -1,3 +1,4 @@
+import { RasberyUserForceGetAuthority } from './../Logics/RasberyOperation/Strategy/Strategies/RasberyUserForceGetAuthority';
 import { RasberyUpdatePassword } from './../Logics/RasberyOperation/Strategy/Strategies/RasberyUpdatePassword';
 import { RasberyMotorGetStatusMember } from './../Logics/RasberyOperation/Strategy/Strategies/RasberyMotorGetStatusMember';
 import { RasberyMotorGetStatusAdmin } from './../Logics/RasberyOperation/Strategy/Strategies/RasberyMotorGetStatusAdmin';
@@ -176,6 +177,26 @@ router.post('/RequestUpdateForgetPassword/:token', (req, res) => {
         });
 
 });
+
+
+router.get('/RasberyForceUpdateAuthority/', (req, res) => {
+    new RasberyContext(new RasberyUserForceGetAuthority(req, res))
+        .process()
+        .then((resp) => {
+            console.log(resp);
+            if (!res.headersSent) {
+                res.send(" RasberyUserForceGetAuthority true");
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+            if (!res.headersSent) {
+                res.status(400).send("RasberyUserForceGetAuthority false");
+            }
+        });
+
+});
+
 
 
 
