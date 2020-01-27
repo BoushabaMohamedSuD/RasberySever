@@ -1,3 +1,4 @@
+import { SocketForceUpdateStatus } from './../Factories/Socket/SocketForceUpdateStatus';
 import { SocketWait } from './../Factories/Socket/SocketWait';
 import { SocketTurnOff } from './../Factories/Socket/SocketTurnOff';
 import { SocketTurnOn } from './../Factories/Socket/SocketTurnOn';
@@ -23,6 +24,8 @@ export class FactorySocket {
             return new SocketTurnOff(request, response, data);
         } else if (operation == 'wait') {
             return new SocketWait(request, response, data);
+        } else if (operation == 'forceupdate') {
+            return new SocketForceUpdateStatus(request, response, data);
         }
         throw new Error('no Factory selected');
 

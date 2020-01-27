@@ -1,3 +1,4 @@
+import { FactorySocket } from './../../Responsibilities/res/FactorySocket';
 import { DeleteUser } from './../../Responsibilities/res/DeleteUser';
 import { SendEmailInvitation } from './../../Responsibilities/res/SendEmailInvitation';
 import { UpdateData } from './../../Responsibilities/res/UpdateData';
@@ -42,6 +43,7 @@ export class RasberyDeleteUser implements RasberyStrategy {
         const chaine6 = FactoryAuthority.getAuthority(request, response, this.data, 'member', 'check');
         const chaine7 = new DeleteUser(request, response, this.data);
         const chaine8 = FactoryAuthority.getAuthority(request, response, this.data, 'guest', 'change');
+        const chaine9 = FactorySocket.OpRuntime(request, response, this.data, 'forceupdate');
 
         this.chaine1.setNextChaine(chaine2);
         chaine2.setNextChaine(chaine3);
@@ -50,6 +52,7 @@ export class RasberyDeleteUser implements RasberyStrategy {
         chaine5.setNextChaine(chaine6);
         chaine6.setNextChaine(chaine7);
         chaine7.setNextChaine(chaine8);
+        chaine8.setNextChaine(chaine9);
 
 
 

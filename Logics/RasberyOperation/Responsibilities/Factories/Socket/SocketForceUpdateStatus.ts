@@ -26,17 +26,17 @@ export class SocketForceUpdateStatus implements RasberyResponsabilities {
             this.process().subscribe(
                 (resp) => {
                     if (resp) {
-                        console.log('Socket wait response');
+                        console.log('Socket force update users response');
                         resolve(true);
                     }
                 },
                 (err) => {
-                    console.log('Error in socket wait');
+                    console.log('Error in socket force update users');
                     reject(false);
 
                 },
                 () => {
-                    console.log('socket wait complete');
+                    console.log('socket force update users complete');
                 }
             )
         });
