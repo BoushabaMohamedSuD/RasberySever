@@ -45,7 +45,7 @@ export class UpdatePassword implements RasberyResponsabilities {
 
     public process(): Observable<boolean> {
         return new Observable((observer: Observer<boolean>) => {
-            User.update({ password: this.request.body.password }, { where: { username: this.data.username } })
+            User.update({ password: this.request.body.password }, { where: { email: this.data.email } })
                 .then(() => {
 
                     if (this.Nextchaine != null) {
@@ -69,7 +69,7 @@ export class UpdatePassword implements RasberyResponsabilities {
 
                 })
                 .catch(err => {
-                    console.log("we cannot get the rasbery");
+                    console.log("we cannot get the user");
                     observer.error(false);
                 })
 
