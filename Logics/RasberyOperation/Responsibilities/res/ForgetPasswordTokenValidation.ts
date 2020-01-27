@@ -1,3 +1,4 @@
+import { reject } from 'bluebird';
 import { RasberyResponsabilities } from './../containers/RasberyResponsabilities';
 
 import { User } from '../../../../Mysql/User';
@@ -54,24 +55,30 @@ export class ForgetPasswordTokenValidation implements RasberyResponsabilities {
                         if (authdata.type == 'ForgetPassword') {
                             this.data.username = authdata.username;
                             this.data.email = authdata.email;
-                            if (this.Nextchaine != null) {
-                                console.log('going to next chaine');
-                                this.Nextchaine.processOperation()
-                                    .then((resp) => {
-                                        console.log(resp);
-                                        observer.next(true);
-                                        observer.complete();
-                                    })
-                                    .catch((err) => {
-                                        console.log(err);
-                                        console.log('Error');
-                                        observer.error(false);
-                                    });
+                            if (this.request.body.password == this.request.body.cfpassword) {
+                                if (this.Nextchaine != null) {
+                                    console.log('going to next chaine');
+                                    this.Nextchaine.processOperation()
+                                        .then((resp) => {
+                                            console.log(resp);
+                                            observer.next(true);
+                                            observer.complete();
+                                        })
+                                        .catch((err) => {
+                                            console.log(err);
+                                            console.log('Error');
+                                            observer.error(false);
+                                        });
+                                } else {
+                                    console.log('this is the end of the chaine');
+                                    observer.next(true);
+                                    observer.complete();
+                                }
                             } else {
-                                console.log('this is the end of the chaine');
-                                observer.next(true);
-                                observer.complete();
+                                observer.error(false);
+                                console.log('cfpassord and password are not equal');
                             }
+
                         } else {
                             console.log("token is not match up with headres");
                             observer.error(false);
