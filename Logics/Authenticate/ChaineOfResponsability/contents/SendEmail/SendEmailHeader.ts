@@ -1,3 +1,4 @@
+import { EndPointInfo } from './../../../../../proprieties/EndPointInfo';
 import { SendEmail } from '../../containers/SendEmail';
 import { AuthenticateChaine } from './../../containers/AuthenticateChaine';
 import { Request, ParamsDictionary, Response } from 'express-serve-static-core';
@@ -68,7 +69,7 @@ export class SendEmailHeader implements AuthenticateChaine, SendEmail {
                         username: authdata.username,
                         email: authdata.email,
                     }, 'NodeJsIotSUD', { expiresIn: 60 * 5 }, (errToken, resToken) => {
-                        let htmlMessage: string = "<a href='http://localhost:3000/ValidateEmail/" + resToken + ">link text</a>";
+                        let htmlMessage: string = "<a href='" + EndPointInfo.getInstance().getEndPointEmail() + "ValidateEmail/" + resToken + "'>link text</a>";
                         transporter.sendMail({
                             from: 'Iot SUD ',
                             to: authdata.email as string,

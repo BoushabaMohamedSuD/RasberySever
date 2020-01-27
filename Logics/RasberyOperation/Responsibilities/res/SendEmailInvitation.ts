@@ -1,3 +1,4 @@
+import { EndPointInfo } from './../../../../proprieties/EndPointInfo';
 import { RasberyResponsabilities } from '../containers/RasberyResponsabilities';
 import { Request, ParamsDictionary, Response } from 'express-serve-static-core';
 import { Observable, Observer } from 'rxjs';
@@ -68,7 +69,7 @@ export class SendEmailInvitation implements RasberyResponsabilities {
                 email: this.data.email,
                 type: "invitation"
             }, 'NodeJsIotSUD', { expiresIn: 60 * 60 * 24 }, (errToken, resToken) => {
-                let htmlMessage: string = "<a href='http://localhost:3000/ValidateInvitation/" + resToken + ">link text</a>";
+                let htmlMessage: string = "<a href='" + EndPointInfo.getInstance().getEndPointEmail() + "ValidateInvitation/" + resToken + "'>link text</a>";
                 transporter.sendMail({
                     from: 'Iot SUD ',
                     //in this case we permute the username with target name

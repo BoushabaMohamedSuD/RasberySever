@@ -38,7 +38,7 @@ export class RasberyUserForceGetAuthority implements RasberyStrategy {
         this.response = response;
         this.chaine1 = new TokenVerification(request, response, this.data);
         const chaine2 = new UserisReady(request, response, this.data);
-        const chaine3 = FactoryAuthority.getAuthority(request, response, this.data, 'member', 'check');
+        const chaine3 = FactoryAuthority.getAuthority(request, response, this.data, 'guest', 'check');
         const chaine4 = new UserGetAuthority(request, response, this.data);
 
         this.chaine1.setNextChaine(chaine2);
