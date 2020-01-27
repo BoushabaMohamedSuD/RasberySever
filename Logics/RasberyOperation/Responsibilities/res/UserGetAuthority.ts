@@ -25,17 +25,17 @@ export class UserGetAuthority implements RasberyResponsabilities {
             this.process().subscribe(
                 (resp) => {
                     if (resp) {
-                        console.log('is raedy achieved an response');
+                        console.log('user get authority achieved an response');
                         resolve(true);
                     }
                 },
                 (err) => {
-                    console.log('Error in is ready');
+                    console.log('Error in user get authority');
                     reject(false);
 
                 },
                 () => {
-                    console.log('is ready complete');
+                    console.log('user get authority complete');
                 }
             )
         });
