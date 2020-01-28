@@ -86,9 +86,11 @@ app.use('/TestSQl', RouterTestSQl);
 
 
 /////////////////////////////////////////////////////////
-var five = require("johnny-five"),
-    board: any, lcd: any;
-board = new five.Board();
+var five = require("johnny-five"), lcd: any;
+const { Board, Led } = require("johnny-five");
+
+
+const board = new Board();
 
 board.on("ready", function () {
     console.log("ready");
@@ -108,10 +110,11 @@ board.on("ready", function () {
         // dots: matrix dimensions, defaults to "5x8"
     });
 
-    const led = new five.Led.RGB({
+    const led = new Led.RGB({
         pins: {
             red: 6,
             green: 5,
+            blue: 3
         }
     });
     // Tell the LCD you will use these characters:

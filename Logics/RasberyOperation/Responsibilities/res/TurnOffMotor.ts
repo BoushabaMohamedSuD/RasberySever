@@ -1,3 +1,4 @@
+import { LedControl } from './../../../Johhny-five/LedControl';
 import { Lcd } from './../../../Johhny-five/Lcd';
 import { userInfo } from 'os';
 import { RasberyResponsabilities } from './../containers/RasberyResponsabilities';
@@ -54,6 +55,7 @@ export class TurnOffMotor implements RasberyResponsabilities {
             const message: string = this.data.username + "turn off ";
             console.log(message);
             new Lcd().WriteMessage(message);
+            new LedControl().ledOnRed();
 
             if (this.Nextchaine != null) {
                 console.log('going to next chaine');
