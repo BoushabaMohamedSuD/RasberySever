@@ -107,6 +107,13 @@ board.on("ready", function () {
         // lines: number of lines, defaults to 2
         // dots: matrix dimensions, defaults to "5x8"
     });
+
+    const led = new five.Led.RGB({
+        pins: {
+            red: 6,
+            green: 5,
+        }
+    });
     // Tell the LCD you will use these characters:
     console.log("lcd begin");
     lcd.useChar("check");
@@ -116,7 +123,12 @@ board.on("ready", function () {
     // Line 1: Hi rmurphey & hgstrp!
     lcd.clear();
     lcd.cursor(1, 0);
+    lcd.print("hello");
+
+
+    //setting in the singleton
     DeviceInfos.getInstance().setLcd(lcd);
+    DeviceInfos.getInstance().setLed(led);
 
 
 

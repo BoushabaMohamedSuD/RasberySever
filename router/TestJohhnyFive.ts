@@ -46,7 +46,7 @@ router.get('/LedTurnOn', (req, res) => {
         // lcd.print("I").write(7).print(" johnny-five");
         // can now be written as:
         console.log("kteb 3afak");
-        lcd.print("youness qe7ba");
+        lcd.print("hello");
         console.log("bybybyb");
         res.send("ok");
 
