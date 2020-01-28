@@ -52,6 +52,7 @@ export class TurnOffMotor implements RasberyResponsabilities {
 
             console.log("::::::::::::::::::::::::::turn off the Motor:::::::::::::::::::::::::::::::")
             const message: string = this.data.username + "turn off ";
+            console.log(message);
             new Lcd().WriteMessage(message);
 
             if (this.Nextchaine != null) {
