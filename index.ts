@@ -117,6 +117,10 @@ board.on("ready", function () {
             blue: 3
         }
     });
+
+
+    const servo = new five.Servo(13);
+
     // Tell the LCD you will use these characters:
     console.log("lcd begin");
     lcd.useChar("check");
@@ -132,6 +136,7 @@ board.on("ready", function () {
     //setting in the singleton
     DeviceInfos.getInstance().setLcd(lcd);
     DeviceInfos.getInstance().setLed(led);
+    DeviceInfos.getInstance().setServo(servo);
 
 
 

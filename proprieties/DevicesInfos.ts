@@ -3,11 +3,13 @@ export class DeviceInfos {
     private static Instance: DeviceInfos;
     private lcd: any;
     private led: any;
+    private servo: any;
 
 
     private constructor() {
         this.lcd = null;
-        this.led = null
+        this.led = null;
+        this.servo = null;
     }
 
     public setLcd(lcd: any) {
@@ -27,6 +29,16 @@ export class DeviceInfos {
 
     public getLed(): any {
         return this.led;
+    }
+
+
+    public setServo(servo: any) {
+        this.servo = servo;
+
+    }
+
+    public getServo(): any {
+        return this.servo;
     }
 
 
