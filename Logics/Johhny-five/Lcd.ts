@@ -2,18 +2,19 @@ var five = require("johnny-five"),
     board: any, lcd: any;
 
 export class Lcd {
-    private message: string;
+    //private message: string;
     constructor() {
-        this.message = "";
+        // this.message = "";
     }
-    public getMessage(): string {
-        return this.message;
-    }
-    public setMessage(message: string): void {
-        this.message = message;
-    }
+    /*  public getMessage(): string {
+          return this.message;
+      }
+      public setMessage(message: string): void {
+          this.message = message;
+      }*/
 
     public WriteMessage(message: string): void {
+
 
         board = new five.Board();
 
@@ -35,7 +36,7 @@ export class Lcd {
                 // dots: matrix dimensions, defaults to "5x8"
             });
             // Tell the LCD you will use these characters:
-            console.log("okkkkkkkk");
+            console.log("lcd begin");
             lcd.useChar("check");
             lcd.useChar("heart");
             lcd.useChar("duck");
@@ -47,9 +48,9 @@ export class Lcd {
             // Line 2: I <3 johnny-five
             // lcd.print("I").write(7).print(" johnny-five");
             // can now be written as:
-            console.log("kteb 3afak");
-            lcd.print("youness qe7ba");
-            console.log("bybybyb");
+            console.log(message);
+            lcd.print(message);
+            console.log("success write in");
 
 
         });

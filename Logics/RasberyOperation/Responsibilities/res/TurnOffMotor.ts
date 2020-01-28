@@ -1,3 +1,4 @@
+import { Lcd } from './../../../Johhny-five/Lcd';
 import { userInfo } from 'os';
 import { RasberyResponsabilities } from './../containers/RasberyResponsabilities';
 import { RasberySql } from './../../../../Mysql/RasberySQL';
@@ -50,6 +51,8 @@ export class TurnOffMotor implements RasberyResponsabilities {
         return new Observable((observer: Observer<boolean>) => {
 
             console.log("::::::::::::::::::::::::::turn off the Motor:::::::::::::::::::::::::::::::")
+            const message: string = this.data.username + "turn off ";
+            new Lcd().WriteMessage(message);
 
             if (this.Nextchaine != null) {
                 console.log('going to next chaine');

@@ -1,3 +1,4 @@
+import { Lcd } from './../../../Johhny-five/Lcd';
 import { userInfo } from 'os';
 import { RasberyResponsabilities } from './../containers/RasberyResponsabilities';
 import { RasberySql } from './../../../../Mysql/RasberySQL';
@@ -6,6 +7,7 @@ import { User } from '../../../../Mysql/User';
 
 import { Observable, Observer } from 'rxjs';
 import { Request, ParamsDictionary, Response } from 'express-serve-static-core';
+import { constants } from 'buffer';
 export class TurnOnMotor implements RasberyResponsabilities {
     private Nextchaine!: RasberyResponsabilities;
     private request: Request<ParamsDictionary>;
@@ -49,7 +51,9 @@ export class TurnOnMotor implements RasberyResponsabilities {
     public process(): Observable<boolean> {
         return new Observable((observer: Observer<boolean>) => {
 
-            console.log("::::::::::::::::::::::::::turn off the Motor:::::::::::::::::::::::::::::::")
+            console.log("::::::::::::::::::::::::::turn on the Motor:::::::::::::::::::::::::::::::")
+            const message: string = this.data.username + "turn on ";
+            new Lcd().WriteMessage(message);
 
             if (this.Nextchaine != null) {
                 console.log('going to next chaine');
